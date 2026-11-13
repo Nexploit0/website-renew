@@ -1,0 +1,503 @@
+/* Continuous scroll-driven camera journey. No visible section boundaries. */
+:root { --j-red:#c8ff4d; --j-ink:#07090e; --j-text:#f4f1f1; --j-muted:#a9a4ad; }
+html { scroll-behavior:auto; background:#07090e; }
+body { overflow-x:hidden; background:#07090e; }
+.nex-journey { overflow:clip; background:#07090e; }
+.journey-runway { height:1250vh; position:relative; background:#07090e; }
+.journey-stage { height:100svh; min-height:650px; width:100%; position:relative; top:0; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 50% 55%,#17101a 0%,#090a10 50%,#04060a 100%); }
+.world-backdrop { position:absolute; inset:-10%; z-index:-5; background:radial-gradient(ellipse at 50% 50%,rgba(200,255,77,.18),transparent 48%),linear-gradient(180deg,#080a10,#0a0a11 55%,#05070b); }
+.world-stars { position:absolute; inset:0; z-index:-4; opacity:.34; background-image:radial-gradient(rgba(255,255,255,.9) .7px,transparent .9px),radial-gradient(rgba(200,255,77,.8) .8px,transparent 1px); background-size:83px 83px,137px 137px; background-position:0 0,35px 61px; }
+.world-vignette { position:absolute; inset:0; z-index:30; pointer-events:none; box-shadow:inset 0 0 140px 45px rgba(0,0,0,.72); }
+.camera-hud { position:absolute; z-index:35; top:26px; left:4vw; right:4vw; display:flex; justify-content:space-between; color:rgba(227,215,222,.55); font:9px "DM Mono",monospace; letter-spacing:.18em; pointer-events:none; }
+.camera-hud:after { content:""; position:absolute; left:0; right:0; top:24px; height:1px; background:linear-gradient(90deg,rgba(200,255,77,.55),transparent 35%,transparent 65%,rgba(200,255,77,.3)); }
+.alien-gateway { position:absolute; z-index:2; width:min(850px,84vw); height:94vh; min-height:650px; left:50%; bottom:-14%; transform:translateX(-50%); transform-origin:50% 60%; }
+.gateway-sky { position:absolute; inset:-10% -20% 0; background:radial-gradient(ellipse at 50% 55%,rgba(200,255,77,.3),transparent 55%); filter:blur(25px); }
+.gateway-spire { position:absolute; z-index:1; bottom:7%; width:17%; height:91%; background:linear-gradient(90deg,#08090e,#24232b 23%,#434a34 45%,#15151d 65%,#07090d); clip-path:polygon(50% 0,100% 100%,0 100%); filter:drop-shadow(0 0 20px rgba(0,0,0,.9)); }
+.spire-left { left:0; transform:scaleX(.85) rotate(-3deg); }.spire-right { right:0; transform:scaleX(.85) rotate(3deg); }
+.gateway-spire:after { content:""; position:absolute; inset:8% 48%; background:linear-gradient(transparent,rgba(200,255,77,.55),transparent); box-shadow:0 0 25px rgba(200,255,77,.4); }
+.gateway-crown { position:absolute; z-index:4; left:17%; right:17%; top:0; height:20%; border-top:8px solid #3b343e; border-radius:50% 50% 0 0; filter:drop-shadow(0 0 16px rgba(200,255,77,.35)); }
+.gateway-crown:before,.gateway-crown:after { content:""; position:absolute; top:-25px; width:18%; height:70px; background:linear-gradient(90deg,#11131a,#4c5240,#0a0b10); clip-path:polygon(50% 0,100% 100%,0 100%); }
+.gateway-crown:before { left:8%; }.gateway-crown:after { right:8%; }
+.gateway-crown i { position:absolute; bottom:-20px; width:2px; height:55px; background:#c8ff4d; box-shadow:0 0 12px #c8ff4d; }.gateway-crown i:nth-child(1){left:23%}.gateway-crown i:nth-child(2){left:50%;height:85px}.gateway-crown i:nth-child(3){right:23%}
+.gateway-arch { position:absolute; z-index:3; top:12%; bottom:5%; left:13%; right:13%; border:13px solid #24232c; border-bottom-width:22px; border-radius:48% 48% 2% 2% / 27% 27% 2% 2%; overflow:hidden; background:#090911; box-shadow:0 0 0 2px #606850,0 0 55px rgba(200,255,77,.22),inset 0 0 55px #000; }
+.gateway-inner-rim { position:absolute; z-index:6; inset:9px; border:2px solid rgba(213,161,173,.24); border-radius:48% 48% 0 0 / 27% 27% 0 0; pointer-events:none; }
+.gate-energy { position:absolute; z-index:1; inset:-20%; opacity:.85; background:radial-gradient(ellipse at 50% 60%,rgba(200,255,77,.68),rgba(200,255,77,.3) 25%,transparent 58%); filter:blur(17px); }
+.gate-depth { position:absolute; z-index:2; inset:0; overflow:hidden; background:radial-gradient(ellipse at 50% 45%,#c8ff4d 0%,#c8ff4d 18%,#1d2410 48%,#05070e 76%); }
+.depth-ring { position:absolute; left:50%; top:47%; border:2px solid rgba(228,255,156,.55); border-radius:50%; transform:translate(-50%,-50%); box-shadow:0 0 35px rgba(200,255,77,.5),inset 0 0 30px rgba(200,255,77,.3); }
+.depth-ring-1 { width:35%; height:48%; }.depth-ring-2 { width:62%; height:82%; border-color:rgba(200,255,77,.3); }.depth-ring-3 { width:95%; height:125%; border-style:dashed; border-color:rgba(200,255,77,.2); }
+.depth-horizon { position:absolute; left:15%; right:15%; top:48%; height:2px; background:#e4ff9c; box-shadow:0 0 25px 8px rgba(200,255,77,.8); }
+.depth-floor { position:absolute; left:-20%; right:-20%; bottom:-25%; height:60%; transform:perspective(220px) rotateX(62deg); transform-origin:top; background:repeating-linear-gradient(90deg,transparent 0 55px,rgba(200,255,77,.2) 56px 58px),repeating-linear-gradient(0deg,transparent 0 38px,rgba(200,255,77,.18) 39px 40px); mask-image:linear-gradient(#000,transparent); }
+.gate-door { position:absolute; z-index:5; top:0; bottom:0; width:50%; background:linear-gradient(100deg,#090a10,#29252e 35%,#464c3a 48%,#17161e 76%,#08090f); border:1px solid #616950; transform-style:preserve-3d; backface-visibility:hidden; box-shadow:inset 0 0 70px rgba(0,0,0,.95); }
+.gate-door:before { content:""; position:absolute; inset:7%; border:1px solid rgba(231,190,200,.22); background:repeating-linear-gradient(135deg,transparent 0 30px,rgba(255,255,255,.025) 31px 32px); }
+.gate-door:after { content:""; position:absolute; inset:12% 20%; border:1px solid rgba(200,255,77,.22); clip-path:polygon(50% 0,100% 35%,75% 100%,25% 100%,0 35%); }
+.door-left { left:0; transform-origin:left center; border-right:5px solid #c8ff4d; }.door-right { right:0; transform-origin:right center; border-left:5px solid #c8ff4d; }
+.gate-door .rune { position:absolute; top:39%; color:#b58d9d; font-size:clamp(55px,7vw,100px); opacity:.5; text-shadow:0 0 25px #c8ff4d; }.door-left .rune{right:13%}.door-right .rune{left:13%}
+.gate-door b { position:absolute; top:0; bottom:0; width:2px; background:linear-gradient(transparent,#c8ff4d,transparent); box-shadow:0 0 18px #c8ff4d; }.door-left b{right:10%}.door-right b{left:10%}
+.gate-seal { position:absolute; z-index:7; left:50%; top:46%; transform:translate(-50%,-50%); width:118px; height:118px; border:1px solid rgba(255,209,218,.55); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:rgba(5,5,10,.68); box-shadow:0 0 55px rgba(200,255,77,.45),inset 0 0 30px rgba(200,255,77,.2); color:white; }
+.gate-seal span { font-size:58px; font-weight:800; line-height:1; }.gate-seal small { font:8px "DM Mono",monospace; letter-spacing:.2em; color:#e4ff9c; }
+.gateway-base { position:absolute; z-index:8; bottom:3%; left:8%; right:8%; height:7%; background:linear-gradient(#5d4b54,#11121a 38%,#05060b); clip-path:polygon(8% 0,92% 0,100% 100%,0 100%); box-shadow:0 0 45px rgba(200,255,77,.35); }
+.gateway-shadow { position:absolute; z-index:0; left:-15%; right:-15%; bottom:0; height:18%; background:radial-gradient(ellipse,rgba(200,255,77,.3),transparent 70%); filter:blur(25px); }
+.welcome-overlay { position:absolute; z-index:12; top:15%; left:0; right:0; text-align:center; pointer-events:none; }
+.welcome-eyebrow { display:flex; justify-content:center; align-items:center; gap:10px; color:#c6b8bf; font:9px "DM Mono",monospace; letter-spacing:.23em; }.welcome-eyebrow i { width:6px;height:6px;border-radius:50%;background:#c8ff4d;box-shadow:0 0 12px #c8ff4d; }
+.welcome-overlay h1 { margin:18px 0 9px; font-size:clamp(38px,6vw,86px); line-height:.92; letter-spacing:-.075em; font-weight:800; text-shadow:0 6px 45px #000; }.welcome-overlay h1 span { color:#c8ff4d; }
+.welcome-overlay p { color:#b7a9b0; font:9px "DM Mono",monospace; letter-spacing:.2em; }
+.scroll-prompt { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:28px; color:#d3c7cd; font:8px "DM Mono",monospace; letter-spacing:.2em; }.scroll-prompt span { width:30px;height:1px;background:#c8ff4d;animation:scrollGlow 1.3s infinite; }@keyframes scrollGlow{50%{opacity:.2;transform:scaleX(.45)}}
+.flight-layer { position:absolute; z-index:14; inset:0; display:grid; place-items:center; opacity:0; pointer-events:none; }
+.flight-tunnel { width:30vw; aspect-ratio:1; border-radius:50%; border:3px solid rgba(200,255,77,.7); box-shadow:0 0 70px #c8ff4d,inset 0 0 70px #c8ff4d; }
+.flight-ring { position:absolute; width:60vw; aspect-ratio:1; border:1px solid rgba(200,255,77,.4); border-radius:50%; }.flight-ring-b { width:90vw;border-style:dashed; }
+.flight-light { position:absolute; width:10vw;aspect-ratio:1;border-radius:50%;background:#c8ff4d;filter:blur(55px); }
+.flight-label { position:absolute; color:white; font:10px "DM Mono",monospace;letter-spacing:.45em;text-shadow:0 0 20px #c8ff4d; }
+.world-panel { position:absolute; inset:0; opacity:0; visibility:hidden; pointer-events:none; }
+.world-panel.active { visibility:visible; }
+.about-world { display:grid; grid-template-columns:.9fr 1.1fr; gap:5vw; align-items:center; padding:8vh 8vw 6vh; background:radial-gradient(ellipse at 80% 45%,rgba(200,255,77,.2),transparent 42%); }
+.about-world-copy { max-width:560px; }.world-kicker { color:#e4ff9c; font:9px "DM Mono",monospace;letter-spacing:.2em; }
+.world-logo { display:block;width:62px;height:62px;object-fit:contain;margin:25px 0 22px;filter:drop-shadow(0 0 20px rgba(200,255,77,.3)); }
+.about-world-copy h2 { font-size:clamp(38px,4.5vw,68px);line-height:.96;letter-spacing:-.075em;margin:0 0 20px; }.about-world-copy h2 em,.ctf-world-heading h2 em,.team-world-heading h2 em,.contact-world-heading h2 em { color:#c8ff4d;font-style:normal; }
+.about-world-copy p { color:#aaa5ae;font-size:12px;line-height:1.85;max-width:520px; }
+.about-capabilities { display:flex;gap:8px;flex-wrap:wrap;margin-top:20px; }.about-capabilities span { padding:8px 10px;border:1px solid rgba(200,255,77,.35);color:#d6b7bf;font:8px "DM Mono",monospace;letter-spacing:.08em; }
+.world-gallery { height:82vh; min-height:500px;overflow:hidden;position:relative;mask-image:linear-gradient(transparent,#000 7%,#000 93%,transparent); }
+.gallery-topline,.gallery-bottomline { display:flex;justify-content:space-between;color:#a79ca5;font:8px "DM Mono",monospace;letter-spacing:.15em;padding:8px 0; }
+.gallery-columns { display:flex;gap:12px;height:100%;overflow:hidden; }.gallery-column { flex:1;display:flex;flex-direction:column;gap:12px; }.gallery-column-b { padding-top:90px; }
+.gallery-column figure { position:relative;margin:0;height:220px;flex:0 0 220px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:linear-gradient(135deg,#1f2415,#10121b 60%,#37451c); }
+.gallery-column img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s; }.gallery-column figure:hover img { transform:scale(1.06); }
+.gallery-column figure:after { content:attr(data-fallback);position:absolute;inset:0;display:grid;place-items:center;color:#d8a4ad;font:9px "DM Mono",monospace;letter-spacing:.12em;background:radial-gradient(circle,rgba(200,255,77,.18),transparent 65%);pointer-events:none; }
+.gallery-column figcaption { position:absolute;bottom:0;left:0;right:0;padding:25px 10px 10px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;font:8px "DM Mono",monospace;letter-spacing:.15em; }
+.ctf-world { padding:8vh 8vw 7vh; background:radial-gradient(ellipse at 50% 50%,rgba(79,99,40,.16),transparent 58%); }
+.ctf-world-heading { position:absolute;top:10%;left:8vw;z-index:2; }.ctf-world-heading h2,.team-world-heading h2 { margin:12px 0;font-size:clamp(42px,5.4vw,78px);line-height:.9;letter-spacing:-.08em; }.ctf-world-heading p { color:#aaa5ae;font-size:11px;max-width:320px;line-height:1.7; }
+.ctf-deck { position:absolute;inset:0;perspective:1400px;transform-style:preserve-3d; }
+.depth-card { position:absolute;top:21%;left:50%;width:min(740px,76vw);min-height:54vh;display:grid;grid-template-columns:.85fr 1.15fr;background:linear-gradient(130deg,rgba(23,22,31,.98),rgba(9,11,17,.98));border:1px solid rgba(255,255,255,.17);box-shadow:0 40px 100px rgba(0,0,0,.58),0 0 50px rgba(200,255,77,.1);transform-style:preserve-3d;overflow:hidden; }
+.blackout-card { z-index:3;transform:translateX(-50%); }.evil-card { z-index:2;transform:translateX(-50%) translateZ(-180px) scale(.86); }.paradox-card { z-index:1;transform:translateX(-50%) translateZ(-360px) scale(.72); }
+.depth-card-art { min-height:390px;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle at 50% 50%,rgba(200,255,77,.33),transparent 48%),linear-gradient(145deg,#1c2113,#080b13 70%);border-right:1px solid rgba(255,255,255,.12);overflow:hidden; }
+.depth-card-art:before { content:"";position:absolute;inset:7%;border:1px solid rgba(255,255,255,.12);background:repeating-linear-gradient(135deg,transparent 0 25px,rgba(255,255,255,.02) 26px 27px); }
+.depth-index,.depth-status { position:absolute;top:18px;color:#c4b5bd;font:8px "DM Mono",monospace;letter-spacing:.13em;z-index:2; }.depth-index{left:17px}.depth-status{right:17px}.depth-status i { display:inline-block;width:6px;height:6px;border-radius:50%;background:#7cff9b;box-shadow:0 0 10px #7cff9b;margin-right:5px; }
+.depth-title { position:relative;z-index:1;color:#f2e8ec;font-size:clamp(48px,6vw,85px);font-weight:800;line-height:.78;letter-spacing:-.09em;text-align:center;text-shadow:0 0 35px rgba(200,255,77,.3); }.depth-title em { color:#c8ff4d;font-style:normal; }.paradox-title {font-size:clamp(36px,4.5vw,65px)}
+.depth-card-art small { position:absolute;bottom:20px;color:#d7b8c0;font:8px "DM Mono",monospace;letter-spacing:.16em;z-index:2; }
+.depth-card-info { padding:clamp(22px,3vw,42px);display:flex;flex-direction:column;justify-content:center; }.depth-tags { color:#b9c98a;font:8px "DM Mono",monospace;letter-spacing:.1em; }.depth-tags i { color:#c8ff4d;padding:0 5px;font-style:normal; }
+.depth-card-info h3 { font-size:clamp(25px,3vw,38px);letter-spacing:-.06em;margin:15px 0 10px; }.depth-card-info p { color:#aaa5ae;font-size:11px;line-height:1.8; }
+.depth-facts { display:flex;gap:12px;flex-wrap:wrap;margin:17px 0;padding:13px 0;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);color:#c6b6bd;font:8px "DM Mono",monospace;letter-spacing:.08em; }
+.depth-card-info a,.team-depth-bio a,.contact-world-heading>a { align-self:flex-start;color:#c8ff4d;font:9px "DM Mono",monospace;letter-spacing:.16em;border-bottom:1px solid rgba(200,255,77,.5);padding-bottom:6px; }
+.ctf-world-foot { position:absolute;bottom:4%;left:8vw;right:8vw;display:flex;justify-content:space-between;color:#a89da5;font:8px "DM Mono",monospace;letter-spacing:.16em; }.ctf-world-foot span { color:#c8ff4d; }
+.team-world { padding:7vh 7vw; background:radial-gradient(ellipse at 50% 55%,rgba(200,255,77,.18),transparent 58%); }
+.team-world-heading { position:absolute;top:8%;left:8vw;z-index:2; }.team-world-heading h2 { font-size:clamp(32px,4.2vw,60px); }
+.team-depth-stack { position:absolute;top:21%;bottom:7%;left:50%;width:min(900px,84vw);transform:translateX(-50%);perspective:1500px;transform-style:preserve-3d; }
+.team-depth-card { position:absolute;inset:0;display:grid;grid-template-columns:.8fr 1.2fr;background:linear-gradient(135deg,#191821,#090b12);border:1px solid rgba(255,255,255,.18);box-shadow:0 35px 100px rgba(0,0,0,.65);overflow:hidden;transform-origin:center center; }
+.team-ayush { z-index:3; }.team-akshay { z-index:2;transform:translate3d(8%,5%, -170px) scale(.88); }.team-sahil { z-index:1;transform:translate3d(14%,10%,-340px) scale(.76); }
+.team-depth-photo { position:relative;min-height:100%;overflow:hidden;background:radial-gradient(circle at 50% 35%,rgba(200,255,77,.3),transparent 60%),#10121a;border-right:1px solid rgba(255,255,255,.12); }.team-depth-photo img { width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center top;filter:saturate(.8); }.team-depth-photo span { position:absolute;bottom:16px;left:16px;color:white;font:8px "DM Mono",monospace;letter-spacing:.15em;text-shadow:0 2px 8px #000; }
+.team-depth-bio { padding:clamp(20px,3vw,38px);display:flex;flex-direction:column;justify-content:center; }.team-depth-bio h3 { font-size:clamp(28px,3.3vw,46px);letter-spacing:-.07em;margin:12px 0 5px; }.team-depth-bio p { color:#aaa5ae;font-size:10px;line-height:1.75; }.team-depth-bio .team-role-line { color:#f0e8ec;font-size:12px; }.team-skills { display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 17px; }.team-skills span { padding:7px 8px;border:1px solid rgba(200,255,77,.3);color:#d8b7bf;font:7px "DM Mono",monospace;letter-spacing:.06em; }
+.contact-world { padding:10vh 9vw;display:grid;grid-template-columns:.9fr 1.1fr;gap:7vw;align-items:center;background:radial-gradient(ellipse at 75% 45%,rgba(200,255,77,.24),transparent 48%); }
+.contact-world-heading h2 { font-size:clamp(45px,6vw,82px);line-height:.9;letter-spacing:-.08em;margin:18px 0; }.contact-world-heading p { max-width:360px;color:#aaa5ae;font-size:12px;line-height:1.8; }.contact-world-heading>a { display:inline-block;margin-top:20px; }
+.contact-world-form { border:1px solid rgba(255,255,255,.16);padding:clamp(20px,3vw,38px);background:rgba(12,13,21,.8);box-shadow:0 35px 100px rgba(0,0,0,.45); }
+.form-world-title { display:flex;justify-content:space-between;gap:12px;color:#eee;font:9px "DM Mono",monospace;letter-spacing:.13em;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12); }.form-world-title span { color:#9d909b;font-size:7px; }
+.journey-contact-form { display:grid;grid-template-columns:1fr 1fr;gap:17px 12px;padding-top:20px; }.journey-contact-form label { display:flex;flex-direction:column;gap:8px;color:#c6b6bf;font:8px "DM Mono",monospace;letter-spacing:.13em; }.journey-contact-form input,.journey-contact-form textarea { width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.035);padding:12px;color:white;font:11px "Manrope",sans-serif;outline:none; }.journey-contact-form input:focus,.journey-contact-form textarea:focus { border-color:#c8ff4d; }.journey-contact-form .message-label { grid-column:1/-1; }.journey-contact-form textarea { resize:vertical;min-height:95px; }.journey-contact-form #messageCounter { color:#8e8490;font-size:7px;letter-spacing:.08em; }.journey-submit { grid-column:1/-1;display:flex;justify-content:space-between;padding:14px 16px;border:1px solid #c8ff4d;background:#c8ff4d;color:#07090e;cursor:pointer;font:9px "DM Mono",monospace;letter-spacing:.15em; }.journey-submit:hover { background:transparent; }.journey-contact-form #contactFormStatus { grid-column:1/-1;color:#8f8791;font-size:8px;margin:0; }
+.journey-endmark { position:absolute;z-index:4;bottom:20px;left:4vw;right:4vw;display:flex;align-items:center;gap:12px;color:#928995;font:7px "DM Mono",monospace;letter-spacing:.14em;opacity:0; }.journey-endmark img { width:22px;height:22px;object-fit:contain; }.journey-endmark b { margin-left:auto;font-weight:400; }
+.journey-progress { position:absolute;z-index:50;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.08); }.journey-progress span { display:block;width:100%;height:100%;background:#c8ff4d;transform:scaleX(0);transform-origin:left; }
+.gallery-column figure.gallery-missing { display:grid;place-items:center; }.gallery-column figure.gallery-missing:after { content:attr(data-fallback);position:absolute;inset:0;display:grid;place-items:center;color:#e4ff9c;font:9px "DM Mono",monospace;letter-spacing:.12em;background:radial-gradient(circle,rgba(200,255,77,.22),transparent 65%); }
+@media(max-width:900px) {
+ .about-world { grid-template-columns:.85fr 1.15fr;padding-inline:5vw;gap:3vw; }.about-world-copy h2 { font-size:clamp(30px,4.5vw,48px); }.world-gallery { height:74vh; }.gallery-column figure { height:180px;flex-basis:180px; }
+ .depth-card { width:84vw;min-height:58vh;grid-template-columns:.8fr 1.2fr; }.depth-card-art { min-height:350px; }.team-depth-stack { width:90vw; }.team-depth-card { grid-template-columns:.7fr 1.3fr; }
+ .contact-world { padding-inline:6vw;gap:4vw; }
+}
+@media(max-width:650px) {
+ .journey-runway { height:1450vh; }.journey-stage { min-height:580px; }.camera-hud { top:17px;font-size:7px; }
+ .alien-gateway { width:135vw;height:75vh;min-height:560px;bottom:-12%; }.gateway-arch { left:13%;right:13%;border-width:7px; }.gate-seal { width:80px;height:80px; }.gate-seal span { font-size:40px; }.gate-seal small { font-size:6px; }
+ .welcome-overlay { top:16%; }.welcome-overlay h1 { font-size:clamp(34px,10vw,54px); }.welcome-overlay p { font-size:7px;letter-spacing:.12em; }.welcome-eyebrow { font-size:7px; }.scroll-prompt { font-size:7px;margin-top:18px; }
+ .about-world { display:block;padding:12vh 7vw 8vh; }.about-world-copy { position:absolute;top:9%;left:7vw;right:7vw; }.world-logo { width:40px;height:40px;margin:12px 0; }.about-world-copy h2 { font-size:34px;margin-bottom:9px; }.about-world-copy p { font-size:9px;line-height:1.5;margin:6px 0; }.about-capabilities { margin-top:8px;gap:5px; }.about-capabilities span { font-size:6px;padding:5px; }
+ .world-gallery { position:absolute;left:7vw;right:7vw;bottom:5%;height:39vh;min-height:220px; }.gallery-column figure { height:135px;flex-basis:135px; }.gallery-column-b { padding-top:45px; }.gallery-topline,.gallery-bottomline { font-size:6px; }
+ .ctf-world { padding:0; }.ctf-world-heading { top:8%;left:7vw; }.ctf-world-heading h2 { font-size:48px;margin:7px 0; }.ctf-world-heading p { font-size:9px;max-width:260px; }.depth-card { top:28%;width:88vw;min-height:54vh;grid-template-columns:1fr;grid-template-rows:34% 66%; }.depth-card-art { min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.12); }.depth-title { font-size:43px; }.depth-card-art small { bottom:8px;font-size:6px; }.depth-index,.depth-status { top:9px;font-size:6px; }.depth-card-info { padding:12px 16px; }.depth-card-info h3 { font-size:22px;margin:7px 0 4px; }.depth-card-info p { font-size:8px;line-height:1.45;margin:4px 0; }.depth-tags,.depth-facts { font-size:6px; }.depth-facts { margin:7px 0;padding:7px 0;gap:7px; }.depth-card-info a { font-size:7px; }.ctf-world-foot { bottom:3%;left:7vw;font-size:6px; }
+ .team-world { padding:0; }.team-world-heading { top:7%;left:7vw; }.team-world-heading h2 { font-size:34px;margin:7px 0; }.team-depth-stack { top:25%;bottom:8%;width:88vw; }.team-depth-card { grid-template-columns:1fr;grid-template-rows:43% 57%; }.team-depth-photo { border-right:0;border-bottom:1px solid rgba(255,255,255,.12); }.team-depth-photo img { object-position:center 25%; }.team-depth-bio { padding:13px 17px; }.team-depth-bio h3 { font-size:27px;margin:6px 0 2px; }.team-depth-bio p { font-size:8px;line-height:1.45;margin:4px 0; }.team-depth-bio .team-role-line { font-size:9px; }.team-skills { gap:4px;margin:5px 0 8px; }.team-skills span { font-size:6px;padding:5px; }.team-depth-bio a { font-size:7px; }
+ .contact-world { display:block;padding:10vh 7vw 8vh; }.contact-world-heading h2 { font-size:43px;margin:10px 0; }.contact-world-heading p { font-size:9px;line-height:1.5;margin:6px 0; }.contact-world-heading>a { margin-top:7px;font-size:7px; }.contact-world-form { margin-top:18px;padding:15px; }.form-world-title { font-size:7px;padding-bottom:10px; }.form-world-title span { font-size:6px; }.journey-contact-form { padding-top:12px;gap:9px; }.journey-contact-form label { font-size:6px;gap:5px; }.journey-contact-form input,.journey-contact-form textarea { padding:8px;font-size:9px; }.journey-contact-form textarea { min-height:65px; }.journey-submit { padding:10px;font-size:7px; }.journey-contact-form #contactFormStatus { font-size:7px; }
+ .journey-endmark { bottom:10px;font-size:6px;gap:7px; }.journey-endmark img { width:16px;height:16px; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important;transition-duration:.01ms!important; } }
+
+/* V3 polish: monumental, unbranded alien architecture and cleaner editorial cards */
+.alien-gateway {
+  width:min(1120px,96vw); height:112vh; min-height:760px; bottom:-13%;
+  filter:drop-shadow(0 35px 70px rgba(0,0,0,.65));
+}
+.gateway-spire { width:19%; height:100%; bottom:3%; background:linear-gradient(90deg,#05070c 0%,#171923 18%,#5f6650 43%,#29202b 57%,#090b12 82%,#03050a 100%); }
+.gateway-crown { left:12%; right:12%; top:1%; height:23%; border-top-width:13px; border-color:#49404b; }
+.gateway-crown:before,.gateway-crown:after { width:22%;height:110px;top:-38px; }
+.gateway-arch { left:10%;right:10%;top:13%;bottom:4%;border-width:19px;border-bottom-width:30px;border-color:#292832;border-radius:49% 49% 1% 1% / 24% 24% 1% 1%;box-shadow:0 0 0 2px #78616b,0 0 90px rgba(200,255,77,.19),inset 0 0 90px #000; }
+.gateway-inner-rim { inset:13px;border-width:3px;border-color:rgba(227,196,204,.27); }
+.gate-door { background:linear-gradient(100deg,#070910 0%,#24232d 23%,#454a3b 47%,#29212c 62%,#090b12 100%); }
+.gate-door:before { inset:5%;border:1px solid rgba(235,210,218,.25);background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,255,255,.035) 23px 24px),linear-gradient(90deg,transparent 48%,rgba(200,255,77,.12) 50%,transparent 52%); }
+.gate-door:after { inset:9% 15%;border:2px solid rgba(200,255,77,.28);clip-path:polygon(50% 0,100% 25%,88% 78%,50% 100%,12% 78%,0 25%); }
+.gate-door .rune { font-size:clamp(70px,9vw,130px);opacity:.27;color:#d8a8b5; }
+.gate-seal { display:none!important; }
+.welcome-overlay { top:5.5%; }
+.welcome-overlay h1 { margin:14px 0 10px;font-size:clamp(42px,6.2vw,92px); }
+.welcome-overlay p { margin-top:13px; }
+.scroll-prompt { margin-top:18px; }
+.flight-layer { filter:blur(0); }
+
+/* Each archive card occupies its own clean focal plane. */
+.ctf-world { background:radial-gradient(ellipse at 50% 55%,rgba(200,255,77,.2),transparent 60%); }
+.ctf-world-heading { top:7.5%;left:7vw; }
+.ctf-world-heading h2 { font-size:clamp(48px,5.7vw,82px);margin:9px 0 12px; }
+.ctf-world-heading p { max-width:360px; }
+.ctf-deck { perspective:1700px; }
+.depth-card {
+  top:24%;left:50%;width:min(900px,82vw);height:56vh;min-height:430px;
+  grid-template-columns:.82fr 1.18fr;border:1px solid rgba(255,255,255,.2);
+  background:linear-gradient(125deg,rgba(23,22,31,.99),rgba(7,9,15,.99));
+  box-shadow:0 35px 110px rgba(0,0,0,.68),0 0 65px rgba(200,255,77,.12);
+  backface-visibility:hidden;
+}
+.blackout-card,.evil-card,.paradox-card { transform:translateX(-50%); }
+.depth-card-art { min-height:0;background:radial-gradient(circle at 50% 45%,rgba(200,255,77,.32),transparent 48%),linear-gradient(145deg,#1e2413,#090b13 74%); }
+.depth-card-art:before { inset:6%;border:1px solid rgba(255,255,255,.16);background:repeating-linear-gradient(135deg,transparent 0 28px,rgba(255,255,255,.025) 29px 30px); }
+.depth-title { font-size:clamp(58px,7vw,100px);letter-spacing:-.085em; }
+.depth-card-info { padding:clamp(26px,3.5vw,52px); }
+.depth-card-info h3 { font-size:clamp(28px,3vw,42px);margin:13px 0 9px; }
+.depth-card-info p { max-width:440px;font-size:12px;line-height:1.85; }
+.depth-facts { gap:10px 16px;margin:19px 0;padding:14px 0;font-size:8px; }
+.depth-card-info a { margin-top:5px; }
+.ctf-world-foot { bottom:5%; }
+
+/* Team profiles no longer ghost through one another. */
+.team-world-heading { top:7%;left:8vw; }
+.team-world-heading h2 { font-size:clamp(38px,4.5vw,66px);margin-top:10px; }
+.team-depth-stack { top:23%;bottom:7%;width:min(960px,84vw); }
+.team-depth-card { background:linear-gradient(135deg,#191821 0%,#090b12 100%);border-color:rgba(255,255,255,.2);box-shadow:0 35px 110px rgba(0,0,0,.72); }
+.team-depth-photo img { filter:saturate(.86) contrast(1.04); }
+.team-depth-bio { padding:clamp(24px,3.5vw,48px); }
+.team-depth-bio h3 { font-size:clamp(32px,3.6vw,50px);margin:10px 0 7px; }
+.team-depth-bio p { max-width:500px;font-size:11px;line-height:1.8; }
+.team-depth-bio .team-role-line { font-size:13px; }
+.team-skills span { font-size:8px;padding:8px 9px; }
+
+@media(max-width:900px) {
+ .alien-gateway { width:145vw;height:88vh;min-height:620px;bottom:-10%; }
+ .welcome-overlay { top:7%; }
+ .depth-card { top:27%;width:88vw;height:58vh;min-height:0; }
+ .team-depth-stack { top:24%;bottom:7%;width:88vw; }
+}
+@media(max-width:600px) {
+ .alien-gateway { width:165vw;height:82vh;min-height:590px;bottom:-8%; }
+ .gateway-arch { left:12%;right:12%;border-width:9px;border-bottom-width:16px; }
+ .gateway-crown { border-top-width:8px; }
+ .welcome-overlay { top:8%; }
+ .welcome-overlay h1 { font-size:clamp(34px,10vw,54px); }
+ .depth-card { top:26%;height:62vh;grid-template-columns:1fr;grid-template-rows:35% 65%; }
+ .depth-card-art { min-height:0;border-right:0;border-bottom:1px solid rgba(255,255,255,.12); }
+ .depth-title { font-size:46px; }
+ .depth-card-info { padding:13px 17px; }
+ .depth-card-info h3 { font-size:23px;margin:7px 0 4px; }
+ .depth-card-info p { font-size:8px;line-height:1.5;margin:4px 0; }
+ .depth-facts { margin:8px 0;padding:7px 0;gap:6px;font-size:6px; }
+ .team-depth-stack { top:25%;bottom:8%; }
+ .team-depth-bio { padding:13px 17px; }
+ .team-depth-bio p { font-size:8px;line-height:1.5; }
+}
+
+/* V4 — monumental light portal inspired by the supplied reference frame. */
+.alien-gateway {
+  width:min(1120px,94vw); height:100vh; min-height:650px; bottom:-10%;
+  left:50%; transform:translateX(-50%); filter:none; perspective:1500px;
+}
+.gateway-atmosphere {
+  position:absolute; inset:-12% -24% -4%; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 47%,rgba(213,225,255,.16),transparent 33%),
+             radial-gradient(ellipse at 50% 78%,rgba(176,190,220,.12),transparent 45%);
+  opacity:.9;
+}
+.portal-monolith {
+  position:absolute; z-index:2; top:4%; bottom:5%; width:39%;
+  background:linear-gradient(90deg,#05070c 0%,#11151e 24%,#202631 50%,#11151e 78%,#05070c 100%);
+  box-shadow:inset 0 0 70px rgba(0,0,0,.95),0 0 55px rgba(0,0,0,.85);
+}
+.portal-monolith:before {
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent 70%,rgba(190,204,226,.12),transparent);
+}
+.portal-monolith-left { left:0; clip-path:polygon(0 0,100% 0,93% 100%,0 100%); }
+.portal-monolith-right { right:0; clip-path:polygon(0 0,100% 0,100% 100%,7% 100%); transform:scaleX(-1); }
+.portal-opening {
+  position:absolute; z-index:4; top:3%; bottom:5%; left:34%; right:34%; overflow:hidden;
+  background:#f7fbff; box-shadow:0 0 22px 8px rgba(226,239,255,.7),0 0 110px 45px rgba(214,229,255,.3);
+}
+.portal-white-core {
+  position:absolute; inset:-10%; background:linear-gradient(180deg,#fff 0%,#f4f9ff 56%,#dce7f7 100%);
+  box-shadow:0 0 100px 35px rgba(255,255,255,.95);
+}
+.portal-light-beam {
+  position:absolute; z-index:2; left:-70%; right:-70%; top:5%; height:120%;
+  background:linear-gradient(90deg,transparent 25%,rgba(255,255,255,.18) 50%,transparent 75%);
+  filter:blur(20px); opacity:.9;
+}
+.portal-fog {
+  position:absolute; z-index:3; inset:35% -45% -15%;
+  background:radial-gradient(ellipse at 50% 75%,rgba(255,255,255,.8),rgba(219,230,246,.25) 34%,transparent 70%);
+  filter:blur(20px);
+}
+.portal-floor-light {
+  position:absolute; z-index:4; left:-100%; right:-100%; bottom:-24%; height:45%;
+  background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.88),rgba(202,218,244,.3) 35%,transparent 72%);
+  transform:perspective(260px) rotateX(48deg); transform-origin:top;
+}
+.portal-silhouette {
+  position:absolute; z-index:5; left:50%; bottom:0; width:38px; height:34%;
+  transform:translateX(-50%); filter:drop-shadow(0 8px 12px rgba(10,15,24,.4));
+}
+.portal-silhouette i {
+  position:absolute; top:0; left:50%; width:13px; height:13px; border-radius:50%;
+  background:#252d39; transform:translateX(-50%);
+}
+.portal-silhouette b {
+  position:absolute; top:12px; left:50%; width:19px; height:45%; transform:translateX(-50%);
+  background:linear-gradient(90deg,#18212d,#303a49,#17202b); border-radius:8px 8px 3px 3px;
+}
+.portal-silhouette span {
+  position:absolute; top:48%; left:50%; width:24px; height:52%; transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent 0 12%,#1a2431 13% 43%,transparent 44% 56%,#1a2431 57% 87%,transparent 88%);
+}
+.gate-door {
+  position:absolute; z-index:8; top:0; bottom:0; width:50%;
+  border:0; background:linear-gradient(90deg,#080b12 0%,#1a202b 44%,#303744 50%,#151b25 100%);
+  box-shadow:inset 0 0 65px rgba(0,0,0,.9); backface-visibility:hidden; transform-style:preserve-3d;
+}
+.gate-door:before { content:""; position:absolute; inset:0; border:1px solid rgba(210,221,240,.13); background:linear-gradient(90deg,rgba(255,255,255,.025),transparent 50%,rgba(0,0,0,.18)); }
+.gate-door:after { content:none; }
+.door-left { left:0; transform-origin:left center; border-right:1px solid rgba(226,236,255,.2); }
+.door-right { right:0; transform-origin:right center; border-left:1px solid rgba(226,236,255,.2); }
+.gateway-floor {
+  position:absolute; z-index:1; left:-28%; right:-28%; bottom:-5%; height:25%;
+  background:radial-gradient(ellipse at 50% 0%,rgba(224,235,255,.22),transparent 65%),
+             linear-gradient(180deg,transparent,rgba(2,4,8,.9));
+  transform:perspective(300px) rotateX(54deg); transform-origin:top;
+}
+.gateway-shadow { z-index:0; background:radial-gradient(ellipse,rgba(215,228,255,.18),transparent 70%); filter:none; }
+.welcome-overlay { top:4.5%; }
+.welcome-overlay h1 { margin:10px 0 8px; text-shadow:0 8px 50px rgba(0,0,0,.85); }
+.welcome-overlay p { text-shadow:0 2px 16px #000; }
+
+/* Card layout: remove competing CSS transforms; GSAP owns card positioning. */
+.depth-card, .team-depth-card { transform:none; }
+.depth-card {
+  left:50%; top:28%; width:min(940px,78vw); height:min(510px,58vh); min-height:390px;
+  overflow:hidden; border-radius:5px; display:grid; grid-template-columns:.88fr 1.12fr;
+  background:linear-gradient(135deg,#151923 0%,#090c13 100%);
+  border:1px solid rgba(225,232,245,.2);
+  box-shadow:0 28px 80px rgba(0,0,0,.62),0 0 0 1px rgba(255,255,255,.025);
+}
+.depth-card-art { position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.depth-card-art:after { content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.07),transparent 42%,rgba(0,0,0,.3)); pointer-events:none; }
+.depth-title { position:relative; z-index:1; text-align:center; line-height:.82; }
+.depth-card-info { display:flex; flex-direction:column; justify-content:center; padding:clamp(24px,3vw,44px); }
+.depth-card-info p { max-width:460px; color:#b8bdc8; }
+.depth-facts { display:flex; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,.12); border-bottom:1px solid rgba(255,255,255,.12); }
+.depth-card-info a { align-self:flex-start; display:inline-flex; padding:10px 0; border-bottom:1px solid rgba(200,255,77,.7); }
+.ctf-world-heading { max-width:440px; }
+.team-depth-card { left:50%; width:min(940px,78vw); height:min(510px,58vh); min-height:390px; overflow:hidden; border-radius:5px; }
+.team-depth-stack { left:50%; transform:translateX(-50%); }
+.team-depth-photo { min-width:0; }
+.team-depth-bio { display:flex; flex-direction:column; justify-content:center; }
+
+/* Native scroll + short scrub: no second smooth-scroll engine competing for frames. */
+.journey-stage { transform:translateZ(0); }
+.alien-gateway, .portal-monolith, .portal-opening, .gate-door, .world-panel, .depth-card, .team-depth-card { will-change:transform,opacity; }
+@media(max-width:900px) {
+  .alien-gateway { width:118vw; height:88vh; min-height:580px; bottom:-5%; }
+  .portal-opening { left:32%; right:32%; }
+  .welcome-overlay { top:7%; }
+  .depth-card,.team-depth-card { width:88vw; height:58vh; min-height:0; top:29%; }
+  .team-depth-stack { top:29%; bottom:8%; }
+}
+@media(max-width:600px) {
+  .alien-gateway { width:145vw; height:78vh; min-height:540px; bottom:-2%; }
+  .portal-opening { left:35%; right:35%; }
+  .portal-monolith { width:42%; }
+  .welcome-overlay { top:8%; }
+  .welcome-overlay h1 { font-size:clamp(34px,10vw,54px); }
+  .depth-card { top:25%; width:88vw; height:64vh; min-height:0; grid-template-columns:1fr; grid-template-rows:34% 66%; }
+  .depth-card-info { padding:14px 18px; }
+  .depth-card-info p { font-size:9px; line-height:1.55; }
+  .team-depth-card { width:88vw; height:64vh; grid-template-columns:1fr; grid-template-rows:40% 60%; }
+  .team-depth-bio { padding:14px 18px; }
+  .team-depth-bio p { font-size:9px; line-height:1.5; }
+  .portal-silhouette { transform:translateX(-50%) scale(.72); transform-origin:bottom; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .journey-runway { height:auto; }
+  .journey-stage { position:relative; }
+}
+.gallery-column figure.gallery-missing { background:linear-gradient(135deg,#171d29,#090c14 58%,#263013); }
+.gallery-column figure.gallery-missing:nth-child(2n) { background:linear-gradient(145deg,#1c1826,#0a1019 56%,#2e3a17); }
+.gallery-column figure.gallery-missing:before { content:""; position:absolute; inset:12%; border:1px solid rgba(230,235,248,.14); background:repeating-linear-gradient(135deg,transparent 0 25px,rgba(255,255,255,.035) 26px 27px); }
+.gallery-column figure.gallery-missing:after { content:attr(data-fallback); z-index:1; }
+
+
+/* V5 — more breathing room between the headline and the monumental doorway. */
+.welcome-overlay { top:4.5%; }
+.alien-gateway {
+  top:auto;
+  bottom:-25%;
+  height:100vh;
+  width:min(1120px,94vw);
+  transform:translate3d(-50%,0,0);
+}
+.portal-silhouette { display:none !important; }
+.portal-silhouette-image {
+  position:absolute;
+  z-index:6;
+  left:50%;
+  bottom:0;
+  width:100%;
+  height:76%;
+  object-fit:contain;
+  object-position:center bottom;
+  transform:translate3d(-50%,0,0);
+  pointer-events:none;
+  user-select:none;
+  filter:drop-shadow(0 12px 16px rgba(0,0,0,.22));
+}
+.portal-opening { isolation:isolate; }
+.portal-white-core { z-index:0; }
+.portal-light-beam { z-index:1; }
+.portal-fog { z-index:3; }
+.portal-floor-light { z-index:4; }
+.portal-silhouette-image { z-index:6; }
+.gate-door { z-index:8; }
+
+/* Keep the scroll scene composited without promoting every card to its own layer. */
+.journey-stage { transform:translate3d(0,0,0); }
+.alien-gateway, .gate-door, .portal-silhouette-image,
+.depth-card, .team-depth-card { backface-visibility:hidden; }
+.world-panel, .depth-card, .team-depth-card { will-change:auto; }
+@media (max-width:900px) {
+  .alien-gateway { width:118vw; height:92vh; bottom:-29%; }
+  .portal-opening { left:32%; right:32%; }
+  .welcome-overlay { top:6%; }
+}
+@media (max-width:600px) {
+  .alien-gateway { width:145vw; height:86vh; bottom:-31%; }
+  .portal-opening { left:35%; right:35%; }
+  .portal-monolith { width:42%; }
+  .welcome-overlay { top:7%; }
+  .portal-silhouette-image { height:72%; }
+}
+
+/* ===== V6 — butter-smooth + royal gate ===== */
+:root{--gold:#d9b872;--gold-2:#8d6b34;--gold-3:#f3dfae}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+
+/* Sticky stage = compositor-driven, no JS pin jitter */
+.journey-stage{position:sticky;top:0;transform:none}
+
+/* Remove paint-heavy effects (blur / giant shadows) from animated layers */
+.world-vignette{box-shadow:none;background:radial-gradient(ellipse at 50% 50%,transparent 42%,rgba(0,0,0,.78) 100%)}
+.portal-opening{perspective:1100px;perspective-origin:50% 40%;box-shadow:0 0 40px 10px rgba(226,239,255,.42)}
+.portal-white-core{box-shadow:none}
+.portal-light-beam,.portal-fog,.gateway-shadow{filter:none}
+.flight-tunnel{box-shadow:none;background:radial-gradient(circle,transparent 56%,rgba(200,255,77,.38) 66%,transparent 74%)}
+.flight-light{filter:none;width:30vw;background:radial-gradient(circle,rgba(200,255,77,.55),transparent 68%)}
+.world-gallery{mask-image:none;-webkit-mask-image:none}
+.world-gallery:before,.world-gallery:after{content:"";position:absolute;left:0;right:0;height:12%;z-index:3;pointer-events:none}
+.world-gallery:before{top:0;background:linear-gradient(#080a10,transparent)}
+.world-gallery:after{bottom:0;background:linear-gradient(transparent,#080a10)}
+.alien-gateway,.gate-door,.world-panel,.depth-card,.team-depth-card,.gallery-column,.flight-layer,.portal-rays{will-change:transform,opacity}
+
+/* Royal doors: dark lacquer, gold trim, diamond lattice, split medallion */
+.gate-door{
+  background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 20%,transparent 80%,rgba(0,0,0,.35)),linear-gradient(180deg,#151b28,#0b0f18 55%,#070a11);
+  box-shadow:inset 0 0 0 1px rgba(217,184,114,.55),inset 0 0 45px rgba(0,0,0,.85)}
+.gate-door:before{inset:4% 8%;border:1px solid rgba(217,184,114,.6);
+  background:linear-gradient(transparent calc(50% - 1px),rgba(217,184,114,.55) 50%,transparent calc(50% + 1px)),
+    repeating-linear-gradient(45deg,transparent 0 16px,rgba(217,184,114,.09) 16px 17px),
+    repeating-linear-gradient(-45deg,transparent 0 16px,rgba(217,184,114,.09) 16px 17px);
+  box-shadow:inset 0 0 0 5px rgba(7,10,17,.9),inset 0 0 0 6px rgba(217,184,114,.3)}
+.gate-door:after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at var(--cx) 46%,rgba(243,223,174,.95) 0 3px,transparent 4px 26px,rgba(217,184,114,.9) 27px 28.5px,transparent 29.5px 40px,rgba(217,184,114,.5) 41px 42px,transparent 43px),
+    linear-gradient(100deg,transparent 30%,rgba(255,244,214,.1) 48%,transparent 62%)}
+.door-left{--cx:100%;border-right:3px solid var(--gold-2)}
+.door-right{--cx:0%;border-left:3px solid var(--gold-2)}
+.portal-monolith:after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0 120px,rgba(217,184,114,.26) 120px 121px),linear-gradient(90deg,transparent 93%,rgba(217,184,114,.55) 98%,transparent)}
+.portal-frame{position:absolute;z-index:9;top:3%;bottom:5%;left:34%;right:34%;pointer-events:none;border:3px solid transparent;
+  border-image:linear-gradient(180deg,var(--gold-3),var(--gold-2) 50%,var(--gold)) 1;
+  box-shadow:0 0 28px rgba(217,184,114,.25),inset 0 0 18px rgba(0,0,0,.5)}
+.portal-crest{position:absolute;z-index:10;left:50%;top:-1.4%;width:84px;height:44px;transform:translateX(-50%);
+  background:linear-gradient(180deg,var(--gold-3),var(--gold-2));clip-path:polygon(0 100%,8% 30%,25% 62%,50% 0,75% 62%,92% 30%,100% 100%)}
+.portal-rays{position:absolute;z-index:2;left:-60%;right:-60%;top:0;height:140%;opacity:0;pointer-events:none;
+  background:repeating-conic-gradient(from -30deg at 50% 78%,rgba(255,255,255,.22) 0 1.6deg,transparent 1.6deg 6deg)}
+@media(max-width:900px){.portal-frame{left:32%;right:32%}.portal-crest{transform:translateX(-50%) scale(.7)}}
+@media(max-width:600px){.portal-frame{left:35%;right:35%}}
+
+
+/* ===== V7 — slab gate (ref: a blade of light splitting a monumental concrete wall) ===== */
+.journey-stage .alien-gateway{left:0;right:0;top:0;bottom:0;width:100%;height:100%;min-height:0;transform:none;transform-origin:50% 70%;perspective:none;filter:none;z-index:2}
+.journey-stage .portal-monolith,.journey-stage .portal-frame,.journey-stage .portal-crest,.journey-stage .gateway-shadow{display:none}
+.journey-stage .portal-opening{left:0;right:0;top:0;bottom:24%;width:auto;perspective:none;overflow:hidden;box-shadow:none;background:#f4f8ff;z-index:4}
+.journey-stage .portal-silhouette-image{left:50%;bottom:0;width:auto;height:15vh;max-width:none;object-fit:contain;transform:translateX(-50%);z-index:6;filter:none}
+.journey-stage .gate-door{top:0;bottom:24%;width:50%;z-index:8;border:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"),
+  linear-gradient(90deg,#030407 0%,#090c12 42%,#161b24 82%,#222936 100%)}
+.journey-stage .door-left{box-shadow:inset -1px 0 0 rgba(255,255,255,.75)}
+.journey-stage .door-right{box-shadow:inset 1px 0 0 rgba(255,255,255,.75);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"),
+  linear-gradient(270deg,#030407 0%,#090c12 42%,#161b24 82%,#222936 100%)}
+.journey-stage .gate-door:before{content:"";position:absolute;inset:0;border:0;box-shadow:none}
+.journey-stage .door-left:before{background:linear-gradient(90deg,transparent 80%,rgba(255,255,255,.07) 95%,rgba(255,255,255,.3))}
+.journey-stage .door-right:before{background:linear-gradient(270deg,transparent 80%,rgba(255,255,255,.07) 95%,rgba(255,255,255,.3))}
+.journey-stage .gate-door:after{content:none}
+.journey-stage .gateway-floor{left:0;right:0;bottom:0;height:24%;transform:none;z-index:3;border-top:1px solid rgba(255,255,255,.07);
+  background:radial-gradient(ellipse 28% 95% at 50% 0,rgba(255,255,255,.38),transparent 72%),linear-gradient(180deg,#0c0f15,#05070a 62%,#030406)}
+.journey-stage .portal-floor-light{left:0;right:0;top:76%;bottom:0;height:auto;transform:none;transform-origin:50% 0;z-index:5;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(214,228,248,.34) 48%,transparent);clip-path:polygon(47% 0,53% 0,100% 100%,0 100%)}
+.journey-stage .gateway-atmosphere{inset:0;z-index:9;pointer-events:none;background:radial-gradient(ellipse 20% 60% at 50% 46%,rgba(255,255,255,.2),transparent 72%)}
+.gateway-lintel{position:absolute;left:0;right:0;top:0;height:25%;z-index:10;pointer-events:none;background:linear-gradient(180deg,#05070b 0%,#05070b 62%,rgba(5,7,11,0))}
+@media(max-width:700px){.journey-stage .portal-silhouette-image{height:12vh}.journey-stage .gate-door{bottom:26%}.journey-stage .portal-opening{bottom:26%}.journey-stage .gateway-floor{height:26%}.journey-stage .portal-floor-light{top:74%}.gateway-lintel{height:28%}}
+
+/* ===== V7b — floor uses the exact same colour as the wall (no seam) ===== */
+.journey-stage .gateway-floor{border-top:0;
+  background:radial-gradient(ellipse 28% 95% at 50% 0,rgba(255,255,255,.38),transparent 72%),
+             linear-gradient(90deg,#030407 0%,#090c12 21%,#161b24 41%,#222936 50%,#161b24 59%,#090c12 79%,#030407 100%)}
+
+/* ===== V7e — gate sits lower (top: 12%) on the screen (everything else = v7-floor-fix) ===== */
+.journey-stage .alien-gateway{top:12%;bottom:auto}
+
+/* ===== V10 — same look as v8 (no border/box), text just a little bigger ===== */
+.flight-label{font-size:clamp(13px,1.15vw,16px)}
+
+/* ===== V11 — banner image replaces the text title on the Evil Corp card ===== */
+.depth-banner{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;z-index:0}
+.evil-card .depth-card-art:before{display:none}
+.evil-card .depth-index,.evil-card .depth-status,.evil-card .depth-card-art small{text-shadow:0 1px 8px rgba(0,0,0,.95)}
+
+/* ===== V15 — Reviews gallery: 3 rows on a curved wall (row1 <-, row2 ->, row3 <- slower) ===== */
+.journey-runway{height:1810vh}
+.reviews-world{background:radial-gradient(ellipse 70% 55% at 50% 60%,rgba(200,255,77,.11),transparent 70%)}
+.reviews-heading{position:absolute;top:8%;left:0;right:0;text-align:center;z-index:3;pointer-events:none}
+.reviews-heading h2{margin:10px 0 0;font-size:clamp(28px,3.8vw,56px);line-height:.95;letter-spacing:-.075em}
+.reviews-heading h2 em{color:#c8ff4d;font-style:normal}
+.reviews-rows{position:absolute;left:0;right:0;top:27%;bottom:2%;display:grid;grid-template-rows:repeat(3,1fr)}
+.rev-row{position:relative;perspective:1300px;perspective-origin:50% 50%}
+.rev-card{position:absolute;left:50%;top:50%;width:clamp(250px,23vw,340px);height:clamp(118px,20vh,172px);box-sizing:border-box;margin:0;padding:15px 18px;overflow:hidden;opacity:0;
+  border-radius:16px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(150deg,rgba(24,31,42,.96),rgba(10,14,21,.96));
+  box-shadow:0 18px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backface-visibility:hidden;will-change:transform,opacity}
+.rev-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#c8ff4d,transparent)}
+.rev-head{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.rev-av{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(200,255,77,.5);color:#c8ff4d;background:rgba(200,255,77,.08);font:600 11px "DM Mono",monospace}
+.rev-who b{display:block;font-size:13px;letter-spacing:-.02em;color:#f4f1f1}
+.rev-who span{display:block;margin-top:2px;color:#8e8a94;font:8.5px "DM Mono",monospace;letter-spacing:.1em}
+.rev-stars{margin-left:auto;color:#c8ff4d;font-size:11px;letter-spacing:.1em}
+.rev-card p{margin:0;color:#c6c2ca;font-size:12.5px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:700px){.reviews-heading{top:9%}.reviews-rows{top:25%}.rev-card{width:clamp(240px,76vw,320px)}}
+/* no-motion fallback: simple horizontally scrollable strips */
+.rev-static,.journey-no-motion .rev-row{display:flex;gap:14px;overflow-x:auto;height:auto;padding:8px 5vw;perspective:none}
+.rev-static .rev-card,.journey-no-motion .rev-card{position:relative;left:auto;top:auto;flex:0 0 auto;opacity:1;transform:none}
+.rev-static .rev-card[aria-hidden],.journey-no-motion .rev-card[aria-hidden]{display:none}
+
+/* ===== V16 — real reviews: roomier cards (up to 5 lines), star rating, long names/teams ellipsised ===== */
+.reviews-rows{top:26%;bottom:1%}
+.rev-card{width:clamp(280px,25vw,380px);height:clamp(140px,23vh,196px);padding:14px 18px}
+.rev-card p{font-size:12px;line-height:1.5;-webkit-line-clamp:5}
+.rev-who{min-width:0;flex:1}
+.rev-who b,.rev-who span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rev-stars{flex:0 0 auto;margin-left:6px;white-space:nowrap}
+.rev-stars i{font-style:normal;color:rgba(200,255,77,.28)}
+.reviews-heading p{margin:10px auto 0;max-width:420px;color:#aaa5ae;font-size:11px;line-height:1.7}
+@media(max-width:700px){.rev-card{width:clamp(250px,78vw,330px)}}

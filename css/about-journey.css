@@ -1,0 +1,276 @@
+/* Nexploit About — cinematic mascot-led team reveal. */
+:root { --about-accent:#c8ff4d; --about-bg:#07090e; --about-panel:#10141c; --about-text:#f4f1f1; --about-muted:#aaa8b0; }
+html { background:var(--about-bg); }
+body[data-page="about.html"] { background:var(--about-bg);color:var(--about-text); }
+.about-journey { position:relative;height:1120vh;background:var(--about-bg); }
+.about-stage {
+  position:sticky;top:0;height:100svh;min-height:650px;overflow:hidden;isolation:isolate;
+  background:radial-gradient(ellipse at 70% 45%,rgba(200,255,77,.08),transparent 36%),linear-gradient(180deg,#07090e 0%,#0a0d14 58%,#05070b 100%);
+}
+.about-bg { position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:72px 72px;mask-image:linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);
+}
+.about-bg:before { content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 48%,rgba(200,255,77,.12),transparent 35%),radial-gradient(ellipse at 18% 90%,rgba(200,255,77,.07),transparent 35%); }
+.about-bg:after { content:"";position:absolute;inset:0;opacity:.16;background-image:radial-gradient(#fff .7px,transparent .9px);background-size:73px 73px; }
+.about-topline { position:absolute;top:22px;left:5vw;right:5vw;display:flex;justify-content:space-between;color:#777d87;font:8px "DM Mono",monospace;letter-spacing:.2em; }
+.about-topline:after { content:"";position:absolute;top:24px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(200,255,77,.45),transparent 50%,rgba(200,255,77,.2)); }
+.about-intro { position:absolute;z-index:4;left:9vw;top:17%;width:min(660px,56vw); }
+.about-kicker { display:flex;align-items:center;gap:10px;color:#d6d2d9;font:9px "DM Mono",monospace;letter-spacing:.2em;text-transform:uppercase; }
+.about-kicker i { width:6px;height:6px;border-radius:50%;background:var(--about-accent);box-shadow:0 0 12px var(--about-accent); }
+.kicker-divider { color:var(--about-accent);padding:0 5px; }
+.about-title { margin:26px 0 18px;font-size:clamp(48px,7.3vw,104px);font-weight:800;line-height:.92;letter-spacing:-.075em;text-shadow:0 8px 48px #000; }
+.about-title em,.dossier-heading h2 em { color:var(--about-accent);font-style:normal; }
+.about-subtitle { max-width:570px;color:#b5b2bb;font-size:clamp(13px,1.25vw,16px);line-height:1.75; }
+.about-hero-tags { display:flex;flex-wrap:wrap;gap:8px;margin-top:25px; }
+.about-hero-tags span { padding:7px 10px;border:1px solid rgba(200,255,77,.25);color:#d9eab2;font:7px "DM Mono",monospace;letter-spacing:.13em; }
+.about-scene-label { position:absolute;right:7vw;top:21%;display:flex;align-items:center;gap:10px;color:#85818b;font:8px "DM Mono",monospace;letter-spacing:.18em; }
+.scene-index { color:var(--about-accent);font-size:13px; }
+.about-scroll-hint { position:absolute;right:5vw;bottom:8%;display:flex;flex-direction:column;align-items:center;gap:12px;color:#8f8d96;font:7px "DM Mono",monospace;letter-spacing:.2em;writing-mode:vertical-rl; }
+.about-scroll-hint i { width:1px;height:42px;background:linear-gradient(var(--about-accent),transparent);transform-origin:top;animation:aboutHint 1.6s ease-in-out infinite; }
+@keyframes aboutHint { 0%,100%{transform:scaleY(.25);opacity:.4}50%{transform:scaleY(1);opacity:1} }
+
+/* Mascot: the supplied Nexploit mark is the face; the little hoodie body is CSS-drawn. */
+.mascot-hello,.mascot-haul { position:absolute;z-index:8;left:8vw;bottom:13%;width:130px;height:150px; }
+.mascot { position:absolute;left:0;bottom:0;width:112px;height:145px;transform-origin:50% 100%; }
+.mascot-head { position:absolute;z-index:4;left:17px;top:0;width:78px;height:78px;border-radius:50%;overflow:hidden;background:#080b11;border:2px solid rgba(200,255,77,.72);box-shadow:0 0 22px rgba(200,255,77,.18); }
+.mascot-head img { display:block;width:100%;height:100%;object-fit:cover; }
+.mascot-hood { position:absolute;left:17px;top:68px;width:78px;height:59px;border-radius:28px 28px 17px 17px;background:linear-gradient(135deg,#252c37,#080b12 65%);border:1px solid rgba(200,255,77,.35);box-shadow:inset 0 0 18px #000; }
+.mascot-hood:after { content:"NX";position:absolute;left:0;right:0;bottom:9px;text-align:center;color:var(--about-accent);font:700 9px "DM Mono",monospace;letter-spacing:.1em; }
+.mascot-arm { position:absolute;z-index:2;top:78px;width:17px;height:43px;border-radius:12px;background:linear-gradient(90deg,#090c12,#39404b);border:1px solid rgba(200,255,77,.22);transform-origin:top center; }
+.mascot-arm:after { content:"";position:absolute;bottom:-6px;left:1px;width:16px;height:13px;border-radius:8px;background:#c9d4c3;border:1px solid #667b51; }
+.mascot-arm-left { left:9px;transform:rotate(20deg); }
+.mascot-arm-right { right:9px;transform:rotate(-22deg); }
+.mascot-leg { position:absolute;z-index:1;top:116px;width:22px;height:28px;border-radius:7px 7px 10px 10px;background:linear-gradient(90deg,#080b11,#323a43); }
+.mascot-leg-left { left:29px;transform:rotate(8deg); }
+.mascot-leg-right { right:29px;transform:rotate(-8deg); }
+.mascot-greeter .mascot-arm-right { animation:mascotWave .55s ease-in-out infinite alternate; }
+@keyframes mascotWave { from{transform:rotate(-35deg)}to{transform:rotate(-125deg)} }
+.mascot-greeter { animation:mascotBob 1.8s ease-in-out infinite; }
+@keyframes mascotBob { 50%{transform:translateY(-7px)} }
+.hello-bubble { position:absolute;left:94px;top:14px;padding:8px 12px;border:1px solid var(--about-accent);border-radius:12px 12px 12px 2px;background:rgba(7,10,14,.92);color:#f4f1f1;font:700 12px "Manrope",sans-serif;box-shadow:0 0 20px rgba(200,255,77,.12);white-space:nowrap; }
+.hello-bubble b { color:var(--about-accent); }
+.mascot-haul { opacity:0; }
+.mascot-puller { transform:rotate(-5deg); }
+.mascot-puller .mascot-arm-left { transform:rotate(62deg); }
+.mascot-puller .mascot-arm-right { transform:rotate(-62deg); }
+.mascot-puller .mascot-leg-left { animation:pullStep .3s ease-in-out infinite alternate; }
+.mascot-puller .mascot-leg-right { animation:pullStep .3s ease-in-out infinite alternate-reverse; }
+@keyframes pullStep { to{transform:translateY(-5px) rotate(18deg)} }
+.haul-rope { position:absolute;z-index:-1;left:0;top:0;width:100vw;height:100%;overflow:visible; }
+.haul-rope path { fill:none;stroke:#c8b58b;stroke-width:3;stroke-linecap:round;stroke-dasharray:700;stroke-dashoffset:700;filter:drop-shadow(0 0 5px rgba(255,231,179,.3)); }
+
+/* One profile arrives at a time; the portrait frame is dragged into place. */
+.profile-scene { position:absolute;z-index:5;left:23vw;top:25%;width:min(1100px,72vw);height:64%;display:grid;grid-template-columns:minmax(230px,.72fr) minmax(0,1.28fr);gap:clamp(28px,4vw,68px);align-items:center;visibility:hidden;opacity:0; }
+.scene-photo-wrap { position:relative;width:100%;max-width:340px;justify-self:center; }
+.scene-photo-frame { position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(200,255,77,.62);background:#111722;box-shadow:0 25px 65px rgba(0,0,0,.6),0 0 34px rgba(200,255,77,.12);transform:rotate(-3deg); }
+.scene-photo-frame:before { content:"";position:absolute;z-index:2;inset:10px;border:1px solid rgba(255,255,255,.18);pointer-events:none; }
+.scene-photo-frame img { display:block;width:100%;height:100%;object-fit:cover;object-position:50% 18%;filter:saturate(.82) contrast(1.05); }
+.scene-photo-frame>span { position:absolute;z-index:3;left:14px;bottom:12px;color:#fff;font:8px "DM Mono",monospace;letter-spacing:.2em;text-shadow:0 1px 7px #000; }
+.frame-corner { position:absolute;z-index:3;width:20px;height:20px;border-color:var(--about-accent);border-style:solid; }
+.corner-a { top:0;left:0;border-width:2px 0 0 2px; }.corner-b { right:0;bottom:0;border-width:0 2px 2px 0; }
+.scene-flame { position:absolute;z-index:5;inset:-8%;opacity:0;pointer-events:none;background:radial-gradient(ellipse at 50% 80%,rgba(255,225,113,.95),rgba(255,88,22,.82) 22%,rgba(255,35,18,.55) 42%,transparent 72%);mix-blend-mode:screen;filter:blur(7px);transform:scaleY(.1);transform-origin:bottom; }
+.scene-flame:after { content:"";position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent 0 12px,rgba(255,194,76,.7) 13px 15px,transparent 16px 25px);mask-image:linear-gradient(0deg,#000,transparent 82%); }
+.scene-copy { position:relative;max-width:650px; }
+.scene-copy-kicker { color:var(--about-accent);font:9px "DM Mono",monospace;letter-spacing:.2em; }
+.scene-copy h2 { margin:12px 0 9px;font-size:clamp(38px,5vw,72px);line-height:.95;letter-spacing:-.07em;font-weight:800; }
+.scene-copy h2 span { color:var(--about-accent); }
+.scene-role { margin:0 0 16px;color:#d3d0d8;font:10px "DM Mono",monospace;letter-spacing:.1em; }
+.scene-bio { max-width:580px;color:#aaa8b1;font-size:clamp(12px,1.1vw,15px);line-height:1.75; }
+.scene-skills { display:flex;flex-wrap:wrap;gap:8px;margin:18px 0; }
+.scene-skills span { padding:7px 10px;border:1px solid rgba(200,255,77,.27);color:#d8e8b5;background:rgba(200,255,77,.035);font:8px "DM Mono",monospace;letter-spacing:.04em; }
+.scene-link { display:inline-block;color:var(--about-accent);font:8px "DM Mono",monospace;letter-spacing:.16em;border-bottom:1px solid rgba(200,255,77,.5);padding-bottom:7px;text-decoration:none; }
+.scene-watermark { position:absolute;right:-2%;bottom:-8%;z-index:-1;color:transparent;-webkit-text-stroke:1px rgba(200,255,77,.1);font-size:clamp(150px,25vw,350px);font-weight:800;line-height:1; }
+.about-counter { position:absolute;left:5vw;bottom:28px;color:#a9a4ad;font:9px "DM Mono",monospace;letter-spacing:.16em;opacity:0; }
+.about-progress { position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.08); }
+.about-progress span { display:block;width:100%;height:100%;background:var(--about-accent);transform:scaleX(0);transform-origin:left; }
+.about-intro,.about-kicker,.about-title,.about-subtitle,.about-hero-tags,.profile-scene,.scene-photo-frame,.scene-copy { backface-visibility:hidden; }
+
+/* Full original bios, experience, stats, tools and work history remain available below. */
+.about-dossiers { padding:110px 0 120px;background:linear-gradient(180deg,#080b11,#0c1119);color:#eef0f2; }
+.dossier-heading { max-width:760px;margin:0 auto 70px;text-align:center; }
+.dossier-heading h2 { margin:20px 0 15px;font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.07em; }
+.dossier-heading p { color:#a8aab2;font-size:14px;line-height:1.7; }
+.about-dossiers .people-list { display:grid;gap:100px; }
+.about-dossiers .person-profile { padding:0 0 80px;border-bottom:1px solid rgba(255,255,255,.1);gap:clamp(28px,5vw,70px); }
+.about-dossiers .person-photo { position:sticky;top:115px;max-height:560px;border-radius:4px;border:1px solid rgba(200,255,77,.22);background:#0c1119;box-shadow:0 20px 60px rgba(0,0,0,.4); }
+.about-dossiers .person-content h2 { color:#f5f3f0;font-size:clamp(36px,4vw,54px);letter-spacing:-.06em; }
+.about-dossiers .person-content p { color:#b6b9c1;line-height:1.8; }
+.about-dossiers .person-content .person-lead { color:#e3e5e9;font-size:16px; }
+.about-dossiers .eyebrow-dark { color:var(--about-accent); }
+.about-dossiers .profile-stats span { border:1px solid rgba(200,255,77,.17);border-radius:4px;background:#111720;color:#b9bec7; }
+.about-dossiers .profile-stats strong { color:var(--about-accent); }
+.about-dossiers .work-grid article { border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#101620; }
+.about-dossiers .work-grid article>span { color:var(--about-accent); }
+.about-dossiers .work-grid h4 { color:#edf0f4; }
+.about-dossiers .work-grid p { color:#aeb4bf; }
+.about-dossiers .skill-tags span { border:1px solid rgba(200,255,77,.18);border-radius:3px;background:#111a20;color:#d7e8b5; }
+.about-dossiers .subheading { color:#f0f1f4; }
+.about-dossiers .person-linkedin { color:var(--about-accent); }
+.about-contact { border-top:1px solid rgba(255,255,255,.08); }
+
+@media(max-width:900px) {
+  .about-intro { left:7vw;top:14%;width:68vw; }
+  .about-title { font-size:clamp(46px,8vw,76px); }
+  .about-scene-label { top:13%;right:6vw; }
+  .profile-scene { left:17vw;width:78vw;top:26%;grid-template-columns:minmax(190px,.75fr) minmax(0,1.25fr);gap:22px; }
+  .mascot-hello,.mascot-haul { left:3vw;transform:scale(.82);transform-origin:bottom left; }
+  .about-dossiers .person-profile { grid-template-columns:.65fr 1.35fr;gap:28px; }
+}
+@media(max-width:650px) {
+  .about-journey { height:1180vh; }
+  .about-stage { min-height:620px; }
+  .about-topline { top:16px;font-size:6px; }
+  .about-intro { left:7vw;top:14%;width:86vw; }
+  .about-kicker { font-size:7px;letter-spacing:.12em; }
+  .about-title { margin:20px 0 12px;font-size:clamp(44px,12vw,62px); }
+  .about-subtitle { max-width:88%;font-size:12px;line-height:1.6; }
+  .about-hero-tags { gap:5px;margin-top:14px; }
+  .about-hero-tags span { padding:6px 7px;font-size:6px; }
+  .about-scene-label { top:auto;bottom:33%;right:7vw;font-size:6px; }
+  .mascot-hello,.mascot-haul { left:3vw;bottom:7%;transform:scale(.68);transform-origin:bottom left; }
+  .hello-bubble { left:84px;top:8px; }
+  .profile-scene { left:7vw;top:31%;width:86vw;height:57%;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:14px; }
+  .scene-photo-wrap { width:clamp(118px,34vw,170px);max-width:none;align-self:flex-start;margin-left:12px; }
+  .scene-photo-frame { aspect-ratio:4/3; }
+  .scene-photo-frame img { object-position:50% 22%; }
+  .scene-copy h2 { font-size:clamp(28px,8vw,42px);margin:7px 0; }
+  .scene-role { font-size:8px;margin-bottom:8px; }
+  .scene-bio { font-size:10px;line-height:1.55;margin:0; }
+  .scene-skills { gap:5px;margin:9px 0; }
+  .scene-skills span { font-size:6px;padding:5px 6px; }
+  .scene-link { font-size:7px; }
+  .scene-watermark { font-size:150px;bottom:-2%; }
+  .about-scroll-hint { right:4vw;bottom:4%;font-size:6px; }
+  .about-dossiers { padding:75px 0; }
+  .dossier-heading { margin-bottom:42px;padding:0 7vw; }
+  .dossier-heading h2 { font-size:44px; }
+  .dossier-heading p { font-size:12px; }
+  .about-dossiers .people-list { gap:65px; }
+  .about-dossiers .person-profile,.about-dossiers .person-reverse { display:flex;flex-direction:column;gap:24px;padding-bottom:50px; }
+  .about-dossiers .person-photo { position:relative;top:auto;width:min(100%,360px);max-height:420px; }
+  .about-dossiers .person-content h2 { font-size:34px; }
+  .about-dossiers .profile-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .about-dossiers .work-grid { grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .about-journey { height:auto; }
+  .about-stage { position:relative;height:auto;min-height:0;padding:110px 7vw 60px;display:flex;flex-direction:column;gap:28px; }
+  .about-intro,.profile-scene,.mascot-hello,.mascot-haul,.about-scene-label,.about-scroll-hint { position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none; }
+  .profile-scene { display:grid;grid-template-columns:160px 1fr;width:100%;height:auto;opacity:1;visibility:visible;margin:15px 0; }
+  .mascot-hello { display:none; }
+  .mascot-haul { display:none; }
+  .profile-scene .scene-copy>* { opacity:1;transform:none; }
+  .about-progress { display:none; }
+}
+
+.mascot-haul { left:0;bottom:0;width:100%;height:100%;pointer-events:none; }
+.mascot-puller { left:8vw;bottom:13%; }
+@media(max-width:900px) {
+  .mascot-puller { left:3vw;bottom:8%; }
+}
+@media(max-width:650px) {
+  .mascot-haul { left:0;bottom:0;transform:none; }
+  .mascot-puller { left:3vw;bottom:7%;transform:scale(.68);transform-origin:bottom left; }
+}
+/* Safe stacked fallback if motion is disabled or the animation library cannot load. */
+.about-static .about-journey { height:auto; }
+.about-static .about-stage { position:relative;height:auto;min-height:0;padding:120px 7vw 70px;display:flex;flex-direction:column;gap:30px; }
+.about-static .about-intro,.about-static .about-scene-label,.about-static .about-scroll-hint,
+.about-static .mascot-hello,.about-static .mascot-haul,.about-static .profile-scene {
+  position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;
+}
+.about-static .profile-scene { display:grid;grid-template-columns:180px 1fr;width:100%;height:auto;opacity:1;visibility:visible; }
+.about-static .profile-scene .snap-item { opacity:1;visibility:visible;transform:none; }
+.about-static .mascot-haul,.about-static .about-progress,.about-static .about-counter { display:none; }
+.about-static .mascot-hello { display:none; }
+
+
+/* V18 — full-body Nexploit polar-bear mascot + scroll-scrubbed frame delivery. */
+.about-journey { height:1180vh; }
+.about-stage { background:
+  radial-gradient(ellipse at 74% 55%,rgba(200,255,77,.075),transparent 34%),
+  radial-gradient(ellipse at 15% 90%,rgba(200,255,77,.045),transparent 36%),
+  linear-gradient(180deg,#060807 0%,#080b0b 55%,#050706 100%); }
+.about-bg { opacity:.72; }
+.mascot-character {
+  position:absolute; z-index:10; right:3.5vw; bottom:3.5%;
+  width:clamp(210px,27vw,360px); aspect-ratio:1/1;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transform-origin:50% 90%; will-change:transform,opacity;
+  filter:drop-shadow(0 18px 34px rgba(0,0,0,.55));
+}
+.mascot-character img { display:block;width:100%;height:100%;object-fit:contain; }
+.mascot-rope {
+  position:absolute;z-index:4;inset:0;width:100%;height:100%;
+  overflow:visible;pointer-events:none;opacity:0;
+}
+.mascot-rope path {
+  fill:none;stroke:#c9c3a6;stroke-width:2.6;stroke-linecap:round;
+  stroke-dasharray:900;stroke-dashoffset:900;
+  filter:drop-shadow(0 0 5px rgba(221,255,150,.45));
+}
+.profile-scene {
+  left:27vw;top:19%;width:min(1050px,68vw);height:70%;
+  z-index:6;grid-template-columns:minmax(240px,.76fr) minmax(0,1.24fr);
+}
+.scene-photo-wrap { max-width:360px; }
+.scene-photo-frame { transform-origin:50% 80%; }
+.scene-smoke {
+  position:absolute;z-index:8;inset:-8%;pointer-events:none;opacity:0;
+  background:
+    radial-gradient(ellipse at 24% 65%,rgba(194,204,195,.55) 0%,rgba(145,155,151,.23) 17%,transparent 43%),
+    radial-gradient(ellipse at 54% 48%,rgba(210,218,207,.46) 0%,rgba(132,144,139,.18) 22%,transparent 48%),
+    radial-gradient(ellipse at 78% 62%,rgba(185,196,185,.36) 0%,transparent 40%);
+  filter:blur(18px);mix-blend-mode:screen;transform:scale(.62);
+}
+.scene-smoke:before,.scene-smoke:after {
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 18% 35%,rgba(222,232,220,.46) 0 2%,transparent 9%),
+    radial-gradient(circle at 42% 72%,rgba(188,201,191,.36) 0 3%,transparent 12%),
+    radial-gradient(circle at 67% 30%,rgba(218,226,215,.42) 0 2%,transparent 10%),
+    radial-gradient(circle at 84% 68%,rgba(178,191,180,.32) 0 3%,transparent 13%);
+  filter:blur(9px);
+}
+.scene-smoke:after { transform:translate(6%, -7%) scale(1.14);opacity:.7; }
+.scene-flame {
+  inset:-6%;z-index:9;
+  background:
+    radial-gradient(ellipse at 50% 88%,rgba(255,248,190,.98) 0%,rgba(255,173,56,.95) 15%,rgba(255,68,24,.82) 34%,rgba(210,30,12,.35) 55%,transparent 74%);
+  filter:blur(5px);mix-blend-mode:screen;
+}
+.scene-flame:after {
+  background:
+    repeating-linear-gradient(76deg,transparent 0 8px,rgba(255,224,137,.9) 9px 11px,transparent 13px 21px),
+    repeating-linear-gradient(105deg,transparent 0 15px,rgba(255,80,25,.65) 16px 19px,transparent 20px 31px);
+  mask-image:linear-gradient(0deg,#000,transparent 86%);
+}
+.scene-copy { perspective:900px; }
+.scene-copy .snap-item { will-change:transform,opacity,filter; }
+.scene-copy h2 { text-shadow:0 8px 40px rgba(0,0,0,.48); }
+.about-counter { z-index:20; }
+@media(max-width:900px) {
+  .about-journey { height:1200vh; }
+  .profile-scene { left:19vw;width:77vw;top:21%;height:69%; }
+  .mascot-character { right:2vw;bottom:4%;width:clamp(190px,31vw,270px); }
+}
+@media(max-width:650px) {
+  .about-journey { height:1240vh; }
+  .profile-scene {
+    left:6vw;top:20%;width:88vw;height:72%;
+    display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:12px;
+  }
+  .scene-photo-wrap { width:clamp(128px,38vw,178px);max-width:none; }
+  .scene-photo-frame { aspect-ratio:4/5; }
+  .mascot-character { right:1vw;bottom:1.5%;width:clamp(150px,39vw,210px); }
+  .scene-smoke { inset:-4%;filter:blur(12px); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .about-journey { height:auto; }
+  .mascot-character,.mascot-rope { display:none; }
+  .profile-scene { position:relative;left:auto;top:auto;width:100%;height:auto;display:grid;opacity:1;visibility:visible;margin:30px 0; }
+  .scene-smoke,.scene-flame { display:none; }
+}
+.about-static .mascot-character,.about-static .mascot-rope { display:none; }
+.about-static .scene-smoke,.about-static .scene-flame { display:none; }
