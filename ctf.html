@@ -1,0 +1,178 @@
+<!-- NEXPLOIT WEBSITE SOURCE: comments explain structure and intent. These comments do not change page behavior. -->
+<!-- Document declaration: tells browsers to render using modern HTML standards. -->
+<!doctype html>
+<html lang="en">
+
+<head><!-- HEAD: page metadata, SEO/social preview tags, fonts, stylesheet, and deferred JavaScript. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d16">
+    <meta name="description" content="Explore Blackout CTF, Evil Corp CTF V2, and Paradox CTF by Nexploit.">
+    <meta property="og:title" content="CTF Events — Nexploit">
+    <meta property="og:description" content="Explore Blackout CTF, Evil Corp CTF V2, and Paradox CTF by Nexploit.">
+    <meta property="og:image" content="assets/og-image.png">
+    <title>CTF Events — Nexploit</title>
+    <link rel="icon" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Load shared site interactions after HTML parsing; defer prevents blocking initial page rendering. -->
+    <script src="js/main.js" defer></script>
+</head><!-- BODY: visible page content begins here; data-page identifies this page for active navigation styling. -->
+
+<body data-page="ctf.html"><a class="skip-link" href="#main">Skip to content</a>
+    <!-- SITE HEADER: compact pill-shaped navigation, expandable brand logo, and responsive menu toggle. -->
+    <header class="site-header">
+        <div class="container nav-wrap"><a class="brand" href="index.html" aria-label="Nexploit home"><img
+                    src="assets/Nexploit_icon.png" alt="Nexploit logo" /><span class="brand-name">Nexploit<span
+                        class="brand-dot">.</span></span></a><button class="nav-toggle" id="navToggle"
+                aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+            <nav class="site-nav" id="siteNav" aria-label="Main navigation"><a href="index.html"
+                    data-nav="index.html">Home</a><a href="about.html" data-nav="about.html">About</a><a href="ctf.html"
+                    data-nav="ctf.html">CTF</a><a href="academy.html" data-nav="academy.html">Academy</a><a
+                    class="nav-cta" href="index.html#contact">Contact <span>↗</span></a></nav>
+        </div>
+    </header><!-- MAIN CONTENT: unique page content; id="main" is the skip-link destination. -->
+    <main id="main">
+        <section class="page-hero page-hero-ctf">
+            <div class="container">
+                <div class="eyebrow"><span class="status-dot"></span> CAPTURE THE FLAG <span
+                        class="eyebrow-line"></span> NEXPLOIT EVENTS</div>
+                <h1>Pick your<br><span>battlefield.</span></h1>
+                <p class="page-intro">Every event below is built by the Nexploit team. Open an event for its full brief,
+                    format, results, and ways to join.</p>
+                <div class="page-hero-meta"><span>03 EVENTS</span><span>JEOPARDY-STYLE CHALLENGES</span></div>
+            </div>
+        </section>
+        <section class="section section-light">
+            <div class="container">
+                <div class="section-heading ctf-heading">
+                    <div>
+                        <div class="eyebrow eyebrow-dark">EVENT ARCHIVE <span class="eyebrow-line"></span> 01</div>
+                        <h2>Find your next<br><span>challenge.</span></h2>
+                    </div>
+                    <!-- FILTER BUTTONS: data-filter must match data-status on cards exactly (lowercase). "upcoming" = upcoming cards, "completed" = completed cards, "all" = show everything. -->
+                    <div class="filter-group" role="group" aria-label="Filter CTF events"><button
+                            class="filter-btn is-active" data-filter="all">All events <span>03</span></button><button
+                            class="filter-btn" data-filter="upcoming">Upcoming <span>00</span></button><button
+                            class="filter-btn" data-filter="completed">Completed <span>03</span></button></div>
+                </div>
+                <!-- CTF EVENT CARDS: ordered latest-first by event date. Event codes follow chronological order: CTF-001 = oldest (Evil Corp, Aug), CTF-002 = middle (Paradox, Sep), CTF-003 = latest (Blackout, Oct). data-status must be lowercase to match filter buttons. data-modal connects to the matching event object in js/main.js. -->
+                <div class="ctf-grid">
+
+                    <!-- CTF: BLACKOUT CTF (NX / CTF-003) — COMPLETED EVENT CARD. October 31, 2026 — most recent event, shown first. Edit this article to change the Blackout card title, artwork, tags, summary, date, team size, or its data-modal="blackout" link to the details dialog. -->
+                    <article class="ctf-card ctf-featured" data-status="completed">
+                        <div class="ctf-card-top"><span class="event-code">NX / CTF-003</span><span
+                                class="event-status status-completed"><i></i>Completed</span></div>
+                        <div class="ctf-art ctf-art-blackout"><span class="art-label">NEXPLOIT PRESENTS</span>
+                            <div class="blackout-word">BLACK<br><span>OUT</span></div><span class="art-foot">FIND THE
+                                SIGNAL. CAPTURE THE FLAG.</span>
+                        </div>
+                        <div class="ctf-card-content">
+                            <div class="event-tags"><span>WEB EXPLOITATION</span><span>JEOPARDY</span></div>
+                            <h3>Blackout CTF</h3>
+                            <p>A jeopardy-style Capture the Flag hosted on our own CTFd instance. Break into systems,
+                                capture the flags, and climb the leaderboard — including a short live Web Break System
+                                challenge on web exploitation. Built entirely in-house by the Nexploit team.</p>
+                            <div class="event-meta">
+                                <div><span>DATE</span><strong>October 31, 2026</strong></div>
+                                <div><span>FORMAT</span><strong>6 hours · Jeopardy</strong></div>
+                                <div><span>TEAM SIZE</span><strong>Solo or squad</strong></div>
+                                <div><span>Total Participants</span><strong>1700 +</strong></div>
+                            </div><button class="button button-outline event-details" data-modal="blackout">View event
+                                details <span>↗</span></button>
+                        </div>
+                    </article>
+
+                    <!-- CTF: PARADOX CTF (NX / CTF-002) — COMPLETED EVENT CARD hosted for RNSIT. September 17, 2026 — second event, shown second. Edit this article to change the Paradox card title, artwork, tags, summary, date, host, team size, or its data-modal="paradox" link to the details dialog. -->
+                    <article class="ctf-card" data-status="completed">
+                        <div class="ctf-card-top"><span class="event-code">NX / CTF-002</span><span
+                                class="event-status status-completed"><i></i> Completed</span></div>
+                        <div class="ctf-art ctf-art-paradox"><span class="art-label">HOSTED FOR RNSIT</span>
+                            <div class="paradox-word">PARA<span>DOX</span></div><span class="art-foot">QUESTION
+                                EVERYTHING.</span>
+                        </div>
+                        <div class="ctf-card-content">
+                            <div class="event-tags"><span>RNSIT</span><span>JEOPARDY</span></div>
+                            <h3>Paradox CTF</h3>
+                            <p>Organised by Nexploit for RNSIT. Participants competed on our self-hosted CTFd platform,
+                                solving in-house jeopardy-style challenges. Congratulations to all the teams who took
+                                part!</p>
+                            <div class="event-meta">
+                                <div><span>DATE</span><strong>September 17, 2026</strong></div>
+                                <div><span>HOST</span><strong>RNSIT</strong></div>
+                                <div><span>TEAM SIZE</span><strong>Solo or squad</strong></div>
+                                <div><span>Total Participants</span><strong>120 +</strong></div>
+                            </div><button class="button button-outline event-details" data-modal="paradox">View event
+                                details <span>↗</span></button>
+                        </div>
+                    </article>
+
+                    <!-- CTF: EVIL CORP CTF V2 (NX / CTF-001) — COMPLETED EVENT CARD. August 20, 2026 — first ever event, shown last. Edit this article to change the Evil Corp card title, artwork, tags, summary, date, format, team size, or its data-modal="evilcorp" link to the details dialog. -->
+                    <article class="ctf-card" data-status="completed">
+                        <div class="ctf-card-top"><span class="event-code">NX / CTF-001</span><span
+                                class="event-status status-completed"><i></i> Completed</span></div>
+                        <div class="ctf-art ctf-art-evil"><span class="art-label">A NEXPLOIT EVENT</span>
+                            <div class="evil-word">EVIL<br><span>CORP</span></div><span class="art-foot">TRUST IS A
+                                VULNERABILITY.</span>
+                        </div>
+                        <div class="ctf-card-content">
+                            <div class="event-tags"><span>REVERSE ENGINEERING</span><span>OSINT</span></div>
+                            <h3>Evil Corp CTF V2</h3>
+                            <p>A six-hour jeopardy-style event featuring web exploitation, Linux privilege escalation,
+                                hardcore reverse engineering, and an OSINT hunt — wrapped in a Mr. Robot-inspired theme.
+                            </p>
+                            <div class="event-meta">
+                                <div><span>DATE</span><strong>August 20, 2026</strong></div>
+                                <div><span>FORMAT</span><strong>6 hours · Jeopardy</strong></div>
+                                <div><span>TEAM SIZE</span><strong>Solo or squad</strong></div>
+                                <div><span>Total Participants</span><strong>990 +</strong></div>
+                            </div><button class="button button-outline event-details" data-modal="evilcorp">View event
+                                details <span>↗</span></button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+        <div class="modal-overlay" id="eventModal" aria-hidden="true">
+            <section class="event-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button
+                    class="modal-close" id="modalClose" aria-label="Close event details">×</button>
+                <div class="modal-eyebrow" id="modalEyebrow">EVENT DETAILS</div>
+                <h2 id="modalTitle">CTF Event</h2>
+                <div id="modalBody"></div>
+            </section>
+        </div>
+        <!-- CONTACT STRIP: short CTA for hosting a private CTF or campus event. -->
+        <section class="section section-dark">
+            <div class="container contact-strip">
+                <div>
+                    <div class="eyebrow">HOST A CHALLENGE WITH US <span class="eyebrow-line"></span></div>
+                    <h2>Let's build something<br><span>worth breaking.</span></h2>
+                    <p>Interested in a private CTF, campus event, or custom challenge? Get in touch with the team.</p>
+                </div><a class="button button-primary"
+                    href="mailto:contact@nexploit.in?subject=CTF%20collaboration">Talk CTFs <span>↗</span></a>
+            </div>
+        </section>
+    </main>
+    <!-- SITE FOOTER: footer brand, navigation/social links, legal links if present, and dynamic copyright year. -->
+    <footer class="site-footer">
+        <div class="container footer-main"><a class="brand" href="index.html" aria-label="Nexploit home"><img
+                    src="assets/Nexploit_icon.png" alt="" /><span class="brand-name">Nexploit<span
+                        class="brand-dot">.</span></span></a>
+            <p>Offensive security. Real-world thinking. Better-defended systems.</p>
+            <div class="footer-links"><a href="about.html">About</a><a href="ctf.html">CTF Events</a><a
+                    href="academy.html">Academy</a><a href="feedback.html">Player feedback</a><a
+                    href="mailto:contact@nexploit.in">Email us ↗</a></div>
+        </div>
+        <div class="container footer-bottom"><span>© <span class="current-year">2026</span> Nexploit Security
+                Operations</span><span class="terminal-note"><span class="status-dot"></span> Built with an offensive
+                mindset</span></div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BLACKOUT CTF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#06070c;
+  --text:#f2f4ff;
+  --muted:#a4a9c4;
+  --glass:rgba(255,255,255,.07);
+  --glass-edge:rgba(255,255,255,.18);
+  --wa:#25d366;
+  --dc:#7983ff;
+  --blob1:#3326ff;
+  --blob2:#c8ff4d;
+  --blob3:#12c4b4;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%}
+body{
+  margin:0;min-height:100%;background:var(--ink);color:var(--text);
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  display:grid;place-items:center;padding:24px;overflow-x:hidden;position:relative;
+}
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.75;z-index:0;pointer-events:none}
+.b1{width:46vmax;height:46vmax;background:var(--blob1);top:-14vmax;left:-12vmax}
+.b2{width:38vmax;height:38vmax;background:var(--blob2);bottom:-12vmax;right:-8vmax;opacity:.6}
+.b3{width:26vmax;height:26vmax;background:var(--blob3);top:38%;left:58%;opacity:.4}
+.card{
+  position:relative;z-index:1;width:100%;max-width:640px;
+  padding:clamp(28px,6vw,56px);
+  background:var(--glass);
+  border:1px solid var(--glass-edge);
+  border-radius:28px;
+  -webkit-backdrop-filter:blur(26px) saturate(160%);
+  backdrop-filter:blur(26px) saturate(160%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 30px 80px rgba(0,0,0,.55);
+  animation:rise .9s cubic-bezier(.2,.7,.2,1) both;
+}
+.status{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 16px;border-radius:999px;
+  background:rgba(200,255,77,.14);border:1px solid rgba(200,255,77,.45);
+  font-weight:600;font-size:.9rem;
+}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--blob2);box-shadow:0 0 12px var(--blob2)}
+h1{
+  font-family:"Unbounded","Arial Black",system-ui,sans-serif;font-weight:800;
+  font-size:clamp(2.2rem,9vw,4.2rem);line-height:1.02;letter-spacing:-.02em;
+  margin:26px 0 18px;
+}
+p{margin:0;color:var(--muted);font-size:1.05rem;line-height:1.65;max-width:46ch}
+p strong{color:var(--text);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.btn{
+  flex:1 1 220px;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 22px;border-radius:16px;text-decoration:none;color:var(--text);font-weight:600;
+  background:rgba(255,255,255,.08);border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2);
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.wa svg{color:var(--wa)}
+.btn.dc svg{color:var(--dc)}
+.btn:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.btn.wa:hover{border-color:var(--wa)}
+.btn.dc:hover{border-color:var(--dc)}
+.btn:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+footer{margin-top:34px;font-size:.85rem;color:var(--muted)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card{animation:none}.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<main class="card">
+  <span class="status"><span class="dot"></span>CTF is officially closed</span>
+  <h1>BLACKOUT CTF</h1>
+  <p>The competition has officially ended. <strong>All further updates will be shared on our WhatsApp group or Discord server</strong>, so join one to stay in the loop.</p>
+
+  <div class="actions">
+    <a class="btn wa" href="https://chat.whatsapp.com/DtwJd1rmghxHMYpP7S4kqj" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .5l-.4.600c-.2.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.7-.1l.9-1.100c.2-.3.400-.2.700-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400Z"/></svg>
+      Join WhatsApp group
+    </a>
+    <a class="btn dc" href="https://discord.gg/N9YGsvHQ2z" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.600 5.300A16 16 0 0 0 15.600 4l-.5 1a15 15 0 0 0-4.200 0L10.400 4a16 16 0 0 0-4 1.300C3.900 9 3.200 12.600 3.500 16.200a16 16 0 0 0 4.900 2.500l1-1.600c-.6-.2-1.100-.5-1.600-.8l.4-.3a11.500 11.500 0 0 0 9.600 0l.4.300c-.5.300-1 .600-1.600.800l1 1.600a16 16 0 0 0 4.900-2.500c.4-4.200-.7-7.800-2.900-10.900ZM9.500 14c-.9 0-1.600-.8-1.600-1.800s.7-1.800 1.600-1.800 1.600.8 1.600 1.800-.7 1.800-1.600 1.800Zm5 0c-.9 0-1.600-.8-1.600-1.800s.7-1.800 1.600-1.800 1.600.8 1.600 1.800-.7 1.800-1.600 1.800Z"/></svg>
+      Join Discord server
+    </a>
+  </div>
+
+  <footer>Thank you to everyone who took part. Organised by Nexploit Security Operations.</footer>
+</main>
+</body>
+</html>

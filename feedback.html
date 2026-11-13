@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <title>Under Development | Nexploit</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050505;
+            --accent: #00ff9c;
+            --text: #f4f7f6;
+            --muted: #8a9691;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse at 50% 45%,
+                    rgba(0, 255, 156, 0.09), transparent 55%),
+                #050505;
+        }
+
+        .grid {
+            position: fixed;
+            inset: -50%;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(0,255,156,.055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,156,.055) 1px, transparent 1px);
+            background-size: 48px 48px;
+            transform: perspective(500px) rotateX(18deg);
+            animation: gridMove 18s linear infinite;
+            mask-image: linear-gradient(transparent, black 30%, black 75%, transparent);
+        }
+
+        @keyframes gridMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 48px; }
+        }
+
+        /* Main content */
+        .container {
+            width: min(90%, 680px);
+            text-align: center;
+            padding: 40px 24px;
+            animation: fadeUp 1s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 54px;
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            transition: .3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent);
+            transform: scale(1.06);
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            color: var(--accent);
+            font-size: 20px;
+            box-shadow: 0 0 18px rgba(0,255,156,.15);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            border: 1px solid rgba(0,255,156,.3);
+            background: rgba(0,255,156,.06);
+            color: var(--accent);
+            border-radius: 50px;
+            padding: 9px 15px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0,255,156,.5);
+            }
+            50% {
+                box-shadow: 0 0 0 7px rgba(0,255,156,0);
+            }
+        }
+
+        h1 {
+            margin: 30px 0 18px;
+            font-size: clamp(42px, 8vw, 76px);
+            line-height: 1.05;
+            font-weight: 850;
+            letter-spacing: -3px;
+        }
+
+        h1 span {
+            display: block;
+            color: var(--accent);
+            text-shadow: 0 0 30px rgba(0,255,156,.18);
+        }
+
+        .description {
+            max-width: 490px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Decorative terminal */
+        .terminal {
+            max-width: 390px;
+            margin: 35px auto 0;
+            padding: 17px 20px;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px;
+            background: rgba(10, 15, 13, .85);
+            box-shadow: 0 15px 50px rgba(0,0,0,.25);
+        }
+
+        .terminal-top {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 17px;
+        }
+
+        .terminal-top i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #45534c;
+        }
+
+        .terminal-top i:first-child {
+            background: #c8ff4d;
+        }
+
+        .terminal-top i:nth-child(2) {
+            background: #febc2e;
+        }
+
+        .terminal-top i:nth-child(3) {
+            background: #28c840;
+        }
+
+        .terminal-line {
+            color: #a0ada6;
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            line-height: 2;
+            overflow-wrap: anywhere;
+        }
+
+        .terminal-line span {
+            color: var(--accent);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 7px;
+            height: 13px;
+            margin-left: 3px;
+            vertical-align: middle;
+            background: var(--accent);
+            animation: blink .8s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .footer {
+            margin-top: 38px;
+            color: #59645e;
+            font-size: 12px;
+            letter-spacing: .5px;
+        }
+
+        .footer span {
+            color: var(--accent);
+        }
+
+        /* Small floating decoration */
+        .orbit {
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            right: -190px;
+            top: 12%;
+            border: 1px solid rgba(0,255,156,.12);
+            border-radius: 50%;
+            box-shadow: 0 0 70px rgba(0,255,156,.025);
+            pointer-events: none;
+        }
+
+        .orbit::before {
+            content: "";
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            left: 25px;
+            top: 55px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 28px 12px;
+            }
+
+            .logo {
+                margin-bottom: 43px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .terminal {
+                padding: 15px;
+            }
+
+            .orbit {
+                opacity: .4;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="grid"></div>
+    <div class="orbit"></div>
+
+    <main class="container">
+
+        <!-- Replace this text icon with your official logo if needed -->
+        <a href="#" class="logo" aria-label="Nexploit">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>Nexploit</span>
+        </a>
+
+        <div class="status">
+            <span class="dot"></span>
+            System Upgrade in Progress
+        </div>
+
+        <h1>
+            Under
+            <span>Development.</span>
+        </h1>
+
+        <p class="description">
+            We're building something better. This page is currently
+            under development as we work on improvements and new
+            experiences. Stay tuned.
+        </p>
+
+        <div class="terminal">
+            <div class="terminal-top">
+                <i></i><i></i><i></i>
+            </div>
+
+            <div class="terminal-line">
+                <span>root@nexploit:~$</span> initializing_update...
+            </div>
+            <div class="terminal-line">
+                Loading new features <span id="dots">...</span>
+            </div>
+            <div class="terminal-line">
+                Status: <span>IN DEVELOPMENT</span><span class="cursor"></span>
+            </div>
+        </div>
+
+        <div class="footer">
+            Built with precision. Secured with purpose.
+            <br><br>
+            &copy; <span id="year"></span> Nexploit. All rights reserved.
+        </div>
+
+    </main>
+
+    <script>
+        // Automatically update the copyright year
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        // Animate the terminal dots
+        const dots = document.getElementById("dots");
+        let count = 0;
+
+        setInterval(() => {
+            count = (count + 1) % 4;
+            dots.textContent = ".".repeat(count);
+        }, 500);
+    </script>
+</body>
+</html>

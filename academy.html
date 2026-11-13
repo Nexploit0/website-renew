@@ -1,0 +1,101 @@
+<!-- NEXPLOIT WEBSITE SOURCE: comments explain structure and intent. These comments do not change page behavior. -->
+<!-- Document declaration: tells browsers to render using modern HTML standards. -->
+<!doctype html>
+<html lang="en">
+
+<head><!-- HEAD: page metadata, SEO/social preview tags, fonts, stylesheet, and deferred JavaScript. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d16">
+    <meta name="description"
+        content="Hands-on cybersecurity training, guided CTFs, and offensive security fundamentals from Nexploit.">
+    <meta property="og:title" content="Nexploit Academy — Coming Soon">
+    <meta property="og:description"
+        content="Hands-on cybersecurity training, guided CTFs, and offensive security fundamentals from Nexploit.">
+    <meta property="og:image" content="assets/og-image.png">
+    <title>Nexploit Academy — Coming Soon</title>
+    <link rel="icon" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Load shared site interactions after HTML parsing; defer prevents blocking initial page rendering. -->
+    <script src="js/main.js" defer></script>
+</head><!-- BODY: visible page content begins here; data-page identifies this page for active navigation styling. -->
+
+<body data-page="academy.html"><a class="skip-link" href="#main">Skip to content</a>
+    <!-- SITE HEADER: compact pill-shaped navigation, expandable brand logo, and responsive menu toggle. -->
+    <header class="site-header">
+        <div class="container nav-wrap"><a class="brand" href="index.html" aria-label="Nexploit home"><img
+                    src="assets/Nexploit_icon.png" alt="Nexploit logo" /><span class="brand-name">Nexploit<span
+                        class="brand-dot">.</span></span></a><button class="nav-toggle" id="navToggle"
+                aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+            <nav class="site-nav" id="siteNav" aria-label="Main navigation"><a href="index.html"
+                    data-nav="index.html">Home</a><a href="about.html" data-nav="about.html">About</a><a href="ctf.html"
+                    data-nav="ctf.html">CTF</a><a href="academy.html" data-nav="academy.html">Academy</a><a
+                    class="nav-cta" href="index.html#contact">Contact <span>↗</span></a></nav>
+        </div>
+    </header><!-- MAIN CONTENT: unique page content; id="main" is the skip-link destination. -->
+    <main id="main"><!-- ACADEMY HERO: explains the learning initiative and its status. -->
+        <section class="academy-hero">
+            <div class="academy-glow"></div>
+            <div class="container academy-hero-inner">
+                <div class="eyebrow"><span class="status-dot"></span> NEXPLOIT ACADEMY <span
+                        class="eyebrow-line"></span> LEARN BY DOING</div>
+                <div class="academy-emblem">NX<span> / LABS</span></div>
+                <h1>Academy<br><span>Coming soon.</span></h1>
+                <p class="page-intro">Hands-on cybersecurity training from the team at Nexploit. Exploit possibilities.
+                    Build future.</p>
+                <div class="coming-soon-pill"><span class="status-dot"></span> IN DEVELOPMENT</div><a
+                    class="button button-primary"
+                    href="mailto:contact@nexploit.in?subject=Nexploit%20Academy%20updates">Ask about the academy
+                    <span>↗</span></a>
+            </div>
+            <div class="container academy-bottom"><span>HANDS-ON LABS</span><span>GUIDED CTFs</span><span>OFFENSIVE
+                    SECURITY FUNDAMENTALS</span></div>
+        </section>
+        <section class="section section-light">
+            <div class="container section-heading">
+                <div>
+                    <div class="eyebrow eyebrow-dark">THE LEARNING APPROACH <span class="eyebrow-line"></span></div>
+                    <h2>Learn it. Test it.<br><span>Understand it.</span></h2>
+                </div>
+                <p>We're working toward a learning space built around practical labs, guided challenges, and
+                    fundamentals you can apply — not just watch.</p>
+            </div>
+            <div class="container academy-pillars">
+                <article><span>01</span>
+                    <h3>Hands-on labs</h3>
+                    <p>Practice in guided environments designed to help concepts click.</p>
+                </article>
+                <article><span>02</span>
+                    <h3>Guided CTFs</h3>
+                    <p>Build problem-solving skills through structured security challenges.</p>
+                </article>
+                <article><span>03</span>
+                    <h3>Real fundamentals</h3>
+                    <p>Understand the techniques, the impact, and the defensive lessons.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+    <!-- SITE FOOTER: footer brand, navigation/social links, legal links if present, and dynamic copyright year. -->
+    <footer class="site-footer">
+        <div class="container footer-main"><a class="brand" href="index.html" aria-label="Nexploit home"><img
+                    src="assets/Nexploit_icon.png" alt="" /><span class="brand-name">Nexploit<span
+                        class="brand-dot">.</span></span></a>
+            <p>Offensive security. Real-world thinking. Better-defended systems.</p>
+            <div class="footer-links"><a href="about.html">About</a><a href="ctf.html">CTF Events</a><a
+                    href="academy.html">Academy</a><a href="feedback.html">Player feedback</a><a
+                    href="mailto:contact@nexploit.in">Email us ↗</a></div>
+        </div>
+        <div class="container footer-bottom"><span>© <span class="current-year">2026</span> Nexploit Security
+                Operations</span><span class="terminal-note"><span class="status-dot"></span> Built with an offensive
+                mindset</span></div>
+    </footer>
+</body>
+
+</html>
